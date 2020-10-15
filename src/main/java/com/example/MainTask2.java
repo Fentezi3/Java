@@ -28,8 +28,7 @@ public class MainTask2 {
 
     private static void printReversed(String[] args) {
         for (int i = args.length; i > 0; i--) {
-            System.out.print(args[i-1] + " ");
+            System.out.print(args[i - 1] + " ");
         }
-        System.out.println();
     }
 }

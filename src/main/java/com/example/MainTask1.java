@@ -5,11 +5,11 @@ package com.example;
 import java.util.Scanner;
 
 public class MainTask1 {
-    public static void main(String args[]) {
-        Scanner in = new Scanner(System.in);
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Introduce yourself:");
-        String name = in.nextLine();
+        String name = scanner.nextLine();
+        scanner.close();
         System.out.printf("Hello, %s\n", name);
-        in.close();
     }
 }

@@ -2,43 +2,19 @@
 
 package com.example;
 
+import java.text.DateFormatSymbols;
+import java.time.Month;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class MainTask5 {
-    public static void main(String[] args){
-        Scanner someNumb = new Scanner(System.in);
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a number in the range from 1 to 12: ");
-        int number= someNumb.nextInt();
-        String month;
-
-        switch (number){
-            case 1 : month = "January";
-                break;
-            case 2 : month = "February";
-                break;
-            case 3 : month = "March";
-                break;
-            case 4 : month = "April";
-                break;
-            case 5 : month = "May";
-                break;
-            case 6 : month = "June";
-                break;
-            case 7 : month = "Julue";
-                break;
-            case 8 : month = "August";
-                break;
-            case 9 : month = "September";
-                break;
-            case 10 : month = "October";
-                break;
-            case 11 : month = "November";
-                break;
-            case 12 : month = "December";
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + number);
-        }
-        System.out.println(month);
+        int monthNumber = scanner.nextInt();
+        scanner.close();
+        System.out.println(Month.of(monthNumber).getDisplayName(TextStyle.FULL, Locale.ENGLISH));
+        System.out.println(new DateFormatSymbols(Locale.ENGLISH).getMonths()[monthNumber - 1]);
     }
 }
