@@ -1,6 +1,6 @@
 //5.Ввести число от 1 до 12. Вывести на консоль название месяца, соответствующего данному числу. Осуществить проверку корректности ввода чисел.
 
-package com.example.fundamental;
+package com.example.module1.main;
 
 import java.text.DateFormatSymbols;
 import java.time.Month;

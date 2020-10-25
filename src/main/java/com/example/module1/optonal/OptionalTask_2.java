@@ -1,6 +1,6 @@
 //2.Вывести числа в порядке возрастания (убывания) значений их длины.
 
-package com.example.fundamental;
+package com.example.module1.optonal;
 
 import java.util.Arrays;
 import java.util.Scanner;

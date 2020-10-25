@@ -1,6 +1,6 @@
 //7.Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти первое из них.
 
-package com.example.fundamental;
+package com.example.module1.optonal;
 
 import java.util.HashSet;
 import java.util.Scanner;

@@ -1,6 +1,6 @@
 //5.Найти количество чисел, содержащих только четные цифры, а среди оставшихся — количество чисел с равным числом четных и нечетных цифр.
 
-package com.example.fundamental;
+package com.example.module1.optonal;
 
 import java.util.Scanner;
 
