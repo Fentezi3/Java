@@ -1,6 +1,6 @@
 //3.Вывести заданное количество случайных чисел с переходом и без перехода на новую строку.
 
-package com.example;
+package com.example.module1.main;
 
 import java.util.LinkedList;
 import java.util.List;

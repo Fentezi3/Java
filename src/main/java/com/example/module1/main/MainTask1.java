@@ -1,6 +1,6 @@
 //1.Приветствовать любого пользователя при вводе его имени через командную строку.
 
-package com.example;
+package com.example.module1.main;
 
 import java.util.Scanner;
 
