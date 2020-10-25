@@ -1,6 +1,6 @@
 //2.Вывести числа в порядке возрастания (убывания) значений их длины.
 
-package com.example;
+package com.example.fundamental;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -10,11 +10,11 @@ public class OptionalTask_2 {
         int[] integers = readLine();
         Arrays.sort(integers);
         for (int element : integers) {
-            System.out.printf(element + " ");
+            System.out.print(element + " ");
         }
-        System.out.println(" ");
+        System.out.println();
         for (int i = integers.length - 1; i >= 0; i--) {
-            System.out.printf(integers[i] + " ");
+            System.out.print(integers[i] + " ");
         }
     }
 
@@ -23,10 +23,10 @@ public class OptionalTask_2 {
         System.out.println("Enter some numbers: ");
         String string = scanner.nextLine();
         scanner.close();
-        String[] numb = string.split(" ");
-        int[] results = new int[numb.length];
-        for (int i = 0; i < numb.length; i++) {
-            results[i] = Integer.parseInt(numb[i]);
+        String[] numbers = string.split(" ");
+        int[] results = new int[numbers.length];
+        for (int i = 0; i < numbers.length; i++) {
+            results[i] = Integer.parseInt(numbers[i]);
         }
         return results;
     }

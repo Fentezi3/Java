@@ -1,6 +1,6 @@
 //5.Найти количество чисел, содержащих только четные цифры, а среди оставшихся — количество чисел с равным числом четных и нечетных цифр.
 
-package com.example;
+package com.example.fundamental;
 
 import java.util.Scanner;
 
@@ -16,10 +16,10 @@ public class OptionalTask_5 {
         System.out.println("Enter some numbers: ");
         String string = scanner.nextLine();
         scanner.close();
-        String[] numb = string.split(" ");
-        int[] results = new int[numb.length];
-        for (int i = 0; i < numb.length; i++) {
-            results[i] = Integer.parseInt(numb[i]);
+        String[] numbers = string.split(" ");
+        int[] results = new int[numbers.length];
+        for (int i = 0; i < numbers.length; i++) {
+            results[i] = Integer.parseInt(numbers[i]);
         }
         return results;
     }
@@ -36,7 +36,7 @@ public class OptionalTask_5 {
 
     private static boolean isNumberContainOnlyEvens(Integer chislo) {
         while (chislo > 0) {
-            if (isEven(chislo)) {
+            if (isOdd(chislo)) {
                 return false;
             }
             chislo = chislo / 10;
@@ -44,7 +44,7 @@ public class OptionalTask_5 {
         return true;
     }
 
-    private static boolean isEven(Integer chislo) {
+    private static boolean isOdd(Integer chislo) {
         return chislo % 2 == 1;
     }
 

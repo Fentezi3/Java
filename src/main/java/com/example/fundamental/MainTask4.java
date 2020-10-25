@@ -1,6 +1,6 @@
 //4.Ввести целые числа как аргументы командной строки, подсчитать их сумму (произведение) и вывести результат на консоль.
 
-package com.example;
+package com.example.fundamental;
 
 import java.util.ArrayList;
 import java.util.List;

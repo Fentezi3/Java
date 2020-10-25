@@ -1,9 +1,10 @@
 //7.Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти первое из них.
 
-package com.example;
+package com.example.fundamental;
 
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class OptionalTask_7 {
     public static void main(String[] args) {
@@ -11,12 +12,13 @@ public class OptionalTask_7 {
 
         int indexCounter = 0;
         int elementLength = 0;
-        HashSet<Integer> hashSet = new HashSet<Integer>();
+        Set<Integer> hashSet;
         for (int element : integers) {
+            hashSet = new HashSet<>();
             indexCounter = element;
             while (element > 0) {
                 elementLength++;
-                if (element % 10 >= 0) {
+                if (element % 10 == 0) {
                     hashSet.add(element);
                 }
                 element = element / 10;
@@ -33,10 +35,10 @@ public class OptionalTask_7 {
         System.out.println("Enter some numbers: ");
         String string = scanner.nextLine();
         scanner.close();
-        String[] numb = string.split(" ");
-        int[] results = new int[numb.length];
-        for (int i = 0; i < numb.length; i++) {
-            results[i] = Integer.parseInt(numb[i]);
+        String[] numbers = string.split(" ");
+        int[] results = new int[numbers.length];
+        for (int i = 0; i < numbers.length; i++) {
+            results[i] = Integer.parseInt(numbers[i]);
         }
         return results;
     }

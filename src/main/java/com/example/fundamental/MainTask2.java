@@ -1,6 +1,6 @@
 //2.Отобразить в окне консоли аргументы командной строки в обратном порядке.
 
-package com.example;
+package com.example.fundamental;
 
 import java.util.Scanner;
 
