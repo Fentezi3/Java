@@ -111,5 +111,14 @@ public class StudentMain {
             }
         }
         System.out.println("Students who born earlier then 1971 " + timeDate.toString());
+
+//d) список учебной группы.
+        List<Student> groupOne = new ArrayList<>();
+        for (Student studyGroup : filmFaculty){
+            if (studyGroup.getGroup() == Group.ONE){
+                groupOne.add(studyGroup);
+            }
+        }
+        System.out.println("Group One " + groupOne);
     }
 }
