@@ -2,19 +2,18 @@ package com.example.module2;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.IntSupplier;
 
 public class StudentMain {
     public static void main(String[] args) throws ParseException {
         List<Student> studentList = generateStudentList();
-        List<Student> filmFaculty = printFilmFacultyStudents(studentList);
-        studentsBornEarlieThat(studentList);
-        printStudentsFromOneGroup(filmFaculty);
+        List<Student> filmFaculty = findFilmFacultyStudents(studentList);
+        printStudentsFromGroupOne(filmFaculty);
+        printStudentsBornBeforeHardcodedDate(studentList);
         System.out.println();
-        facultyGroupList(studentList);
+        printFacultyGroupsListWithStudents(studentList);
     }
 
     private static List<Student> generateStudentList() throws ParseException {
@@ -99,19 +98,18 @@ public class StudentMain {
     private final static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
     //a) список студентов заданного факультета;
-    private static List<Student> printFilmFacultyStudents(List<Student> studentList) {
+    private static List<Student> findFilmFacultyStudents(List<Student> studentList) {
         List<Student> filmFacultyStudentList = new ArrayList<>();
         for (Student student : studentList) {
             if (student.getFaculty() == Faculty.FILM) {
                 filmFacultyStudentList.add(student);
             }
         }
-        System.out.println("Film faculty " + filmFacultyStudentList);
         return filmFacultyStudentList;
     }
 
     //b) списки студентов для каждого факультета и курса;
-    private static void facultyGroupList(List<Student> studentList) {
+    private static void printFacultyGroupsListWithStudents(List<Student> studentList) {
         List<List<Student>> globalList = new ArrayList<>();
         for (Faculty faculty : Faculty.values()) {
             for (Group group : Group.values()) {
@@ -130,7 +128,7 @@ public class StudentMain {
     }
 
     //c) список студентов, родившихся после заданного года;
-    private static void studentsBornEarlieThat(List<Student> studentList) throws ParseException {
+    private static void printStudentsBornBeforeHardcodedDate(List<Student> studentList) throws ParseException {
         Date someDateForEquals = format.parse("01.01.1971");
         List<Student> studentsBornBeforeDate = new ArrayList<>();
         for (Student student : studentList) {
@@ -142,7 +140,7 @@ public class StudentMain {
     }
 
     //d) список учебной группы.
-    private static void printStudentsFromOneGroup(List<Student> filmFaculty) {
+    private static void printStudentsFromGroupOne(List<Student> filmFaculty) {
         List<Student> groupOneStudents = new ArrayList<>();
         for (Student student : filmFaculty) {
             if (student.getGroup() == Group.ONE) {
