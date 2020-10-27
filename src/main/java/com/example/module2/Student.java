@@ -2,7 +2,6 @@ package com.example.module2;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 public class Student {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -17,31 +16,23 @@ public class Student {
     private Course course;
     private Group group;
 
-    public Student(String surname, String lastName, String patronymic, String phone) {
-        Random random = new Random();
-        this.id = random.nextInt();
-        this.surname = surname;
-        this.lastName = lastName;
-        this.patronymic = patronymic;
-        this.phone = phone;
-    }
-
     public Student(String surname, String lastName, String patronymic) {
-        Random random = new Random();
-        this.id = random.nextInt();
+        this.id = System.nanoTime();
         this.surname = surname;
         this.lastName = lastName;
         this.patronymic = patronymic;
     }
 
-    public Student(String surname, String lastName, String patronymic, Date dateOfBirth, Address address, String phone,
-                   Faculty faculty, Course course, Group group) {
-        this.surname = surname;
-        this.lastName = lastName;
-        this.patronymic = patronymic;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
+    public Student(String surname, String lastName, String patronymic, String phone) {
+        this(surname, lastName, patronymic);
         this.phone = phone;
+    }
+
+    public Student(String surname, String lastName, String patronymic, Date birthDate, Address address, String phone,
+                   Faculty faculty, Course course, Group group) {
+        this(surname, lastName, patronymic, phone);
+        this.dateOfBirth = birthDate;
+        this.address = address;
         this.faculty = faculty;
         this.course = course;
         this.group = group;

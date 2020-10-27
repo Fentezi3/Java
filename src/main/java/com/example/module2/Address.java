@@ -3,17 +3,17 @@ package com.example.module2;
 public class Address {
     private String country;
     private String city;
-    private int postcode;
+    private String postCode;
     private String street;
     private int house;
     private int apartmentNumber;
 
-    public Address(String country, String city, int postcode,
+    public Address(String country, String city, String postcode,
                    String street, int house, int apartmentNumber) {
 
         this.country = country;
         this.city = city;
-        this.postcode = postcode;
+        this.postCode = postcode;
         this.street = street;
         this.house = house;
         this.apartmentNumber = apartmentNumber;
@@ -35,12 +35,12 @@ public class Address {
         this.city = city;
     }
 
-    public int getPostcode() {
-        return postcode;
+    public String getPostCode() {
+        return postCode;
     }
 
-    public void setPostcode(int postcode) {
-        this.postcode = postcode;
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
     }
 
     public String getStreet() {
@@ -72,7 +72,7 @@ public class Address {
         return "Address{" +
                 "country='" + country + '\'' +
                 ", city='" + city + '\'' +
-                ", postcode=" + postcode +
+                ", postcode=" + postCode +
                 ", street='" + street + '\'' +
                 ", house=" + house +
                 ", apartmentNumber=" + apartmentNumber +
