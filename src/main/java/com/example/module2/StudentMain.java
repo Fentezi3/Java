@@ -3,8 +3,6 @@ package com.example.module2;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.IntSupplier;
 
 public class StudentMain {
     public static void main(String[] args) throws ParseException {
