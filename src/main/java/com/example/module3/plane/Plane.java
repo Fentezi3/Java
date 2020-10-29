@@ -1,4 +1,4 @@
-package com.example.module3.Planes;
+package com.example.module3.plane;
 
 import java.util.Objects;
 
@@ -14,20 +14,6 @@ abstract public class Plane {
         this.maxFlightDistance = maxFlightDistance;
         this.maxLoadCapacity = maxLoadCapacity;
     }
-
-    public String getModel() {
-        return model;
-    }
-
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public int getMaxFlightDistance() {
-        return maxFlightDistance;
-    }
-
-    public int getMaxLoadCapacity() { return this.maxLoadCapacity; }
 
     @Override
     public boolean equals(Object o) {
@@ -53,5 +39,21 @@ abstract public class Plane {
                 ", maxFlightDistance=" + maxFlightDistance +
                 ", maxLoadCapacity=" + maxLoadCapacity +
                 '}';
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public int getMaxFlightDistance() {
+        return maxFlightDistance;
+    }
+
+    public int getMaxLoadCapacity() {
+        return this.maxLoadCapacity;
     }
 }

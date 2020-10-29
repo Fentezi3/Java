@@ -1,17 +1,13 @@
-package com.example.module3.Planes;
+package com.example.module3.plane;
 
 import java.util.Objects;
 
-public class PassengerPlane extends Plane{
+public class PassengerPlane extends Plane {
     private int passengersCapacity;
 
     public PassengerPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, int passengersCapacity) {
         super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
         this.passengersCapacity = passengersCapacity;
-    }
-
-    public int getPassengersCapacity() {
-        return passengersCapacity;
     }
 
     @Override
@@ -33,5 +29,9 @@ public class PassengerPlane extends Plane{
         return super.toString().replace("}",
                 ", passengersCapacity=" + passengersCapacity +
                         '}');
+    }
+
+    public int getPassengersCapacity() {
+        return passengersCapacity;
     }
 }

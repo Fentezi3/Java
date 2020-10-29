@@ -3,12 +3,16 @@
 // 4-Jan-2019
 package com.example.module3;
 
-import com.example.module3.Planes.experimentalPlane;
+import com.example.module3.plane.ExperimentalPlane;
+import com.example.module3.plane.MilitaryPlane;
+import com.example.module3.plane.PassengerPlane;
+import com.example.module3.plane.Plane;
 import com.example.module3.models.MilitaryType;
-import com.example.module3.Planes.MilitaryPlane;
-import com.example.module3.Planes.PassengerPlane;
-import com.example.module3.Planes.Plane;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 
 public class Airport {
     private List<? extends Plane> planes;
@@ -17,7 +21,7 @@ public class Airport {
         this.planes = planes;
     }
 
-    public List<PassengerPlane> getPassengerPlane() {
+    public List<PassengerPlane> getPassengerPlanes() {
         List<PassengerPlane> passengerPlanes = new ArrayList<>();
         for (Plane plane : planes) {
             if (plane instanceof PassengerPlane) {
@@ -38,7 +42,7 @@ public class Airport {
     }
 
     public PassengerPlane getPassengerPlaneWithMaxPassengersCapacity() {
-        List<PassengerPlane> passengerPlanes = getPassengerPlane();
+        List<PassengerPlane> passengerPlanes = getPassengerPlanes();
         PassengerPlane planeWithMaxCapacity = passengerPlanes.get(0);
         for (PassengerPlane passengerPlane : passengerPlanes) {
             if (passengerPlane.getPassengersCapacity() > planeWithMaxCapacity.getPassengersCapacity()) {
@@ -70,11 +74,11 @@ public class Airport {
         return bomberMilitaryPlanes;
     }
 
-    public List<experimentalPlane> getExperimentalPlanes() {
-        List<experimentalPlane> experimentalPlanes = new ArrayList<>();
+    public List<ExperimentalPlane> getExperimentalPlanes() {
+        List<ExperimentalPlane> experimentalPlanes = new ArrayList<>();
         for (Plane plane : planes) {
-            if (plane instanceof experimentalPlane) {
-                experimentalPlanes.add((experimentalPlane) plane);
+            if (plane instanceof ExperimentalPlane) {
+                experimentalPlanes.add((ExperimentalPlane) plane);
             }
         }
         return experimentalPlanes;
@@ -85,12 +89,12 @@ public class Airport {
         return this;
     }
 
-    public Airport sortByMaxSpeed() {
+    public Airport sortPlanesByMaxSpeed() {
         planes.sort((Comparator<Plane>) (o1, o2) -> o1.getMaxSpeed() - o2.getMaxSpeed());
         return this;
     }
 
-    public Airport sortByMaxLoadCapacity() {
+    public Airport sortPlanesByMaxLoadCapacity() {
         planes.sort((Comparator<Plane>) (o1, o2) -> o1.getMaxLoadCapacity() - o2.getMaxLoadCapacity());
         return this;
     }
@@ -101,14 +105,14 @@ public class Airport {
         }
     }
 
-    public List<? extends Plane> getPlanes() {
-        return planes;
-    }
-
     @Override
     public String toString() {
         return "Airport{" +
                 "Planes=" + planes.toString() +
                 '}';
+    }
+
+    public List<? extends Plane> getPlanes() {
+        return planes;
     }
 }
