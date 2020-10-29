@@ -19,28 +19,15 @@ abstract public class Plane {
         return model;
     }
 
-    public int getMS() {
+    public int getMaxSpeed() {
         return maxSpeed;
     }
 
-    public int Get_Max_Flight_Distance() {
+    public int getMaxFlightDistance() {
         return maxFlightDistance;
     }
 
-    public int getMinLoadCapacity() {
-        int result = this.maxLoadCapacity;
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Plane{" +
-                "model='" + model + '\'' +
-                ", maxSpeed=" + maxSpeed +
-                ", maxFlightDistance=" + maxFlightDistance +
-                ", maxLoadCapacity=" + maxLoadCapacity +
-                '}';
-    }
+    public int getMaxLoadCapacity() { return this.maxLoadCapacity; }
 
     @Override
     public boolean equals(Object o) {
@@ -56,5 +43,15 @@ abstract public class Plane {
     @Override
     public int hashCode() {
         return Objects.hash(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
+    }
+
+    @Override
+    public String toString() {
+        return "Plane{" +
+                "model='" + model + '\'' +
+                ", maxSpeed=" + maxSpeed +
+                ", maxFlightDistance=" + maxFlightDistance +
+                ", maxLoadCapacity=" + maxLoadCapacity +
+                '}';
     }
 }

@@ -4,11 +4,11 @@ import com.example.module3.models.ClassificationLevel;
 import com.example.module3.models.ExperimentalTypes;
 
 public class experimentalPlane extends Plane{
-
     private ExperimentalTypes type;
     private ClassificationLevel classificationLevel;
 
-    public experimentalPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, ExperimentalTypes type, ClassificationLevel classificationLevel) {
+    public experimentalPlane(String model, int maxSpeed, int maxFlightDistance,
+                             int maxLoadCapacity, ExperimentalTypes type, ClassificationLevel classificationLevel) {
         super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
         this.type = type;
         this.classificationLevel = classificationLevel;
