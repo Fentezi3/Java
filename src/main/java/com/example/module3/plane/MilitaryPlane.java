@@ -28,9 +28,9 @@ public class MilitaryPlane extends Plane {
 
     @Override
     public String toString() {
-        return super.toString().replace("}",
-                ", type=" + type +
-                        '}');
+        return "MilitaryPlane{" +
+                "type=" + type +
+                '}';
     }
 
     public MilitaryType getType() {

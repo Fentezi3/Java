@@ -3,10 +3,10 @@ package com.example.module3.plane;
 import java.util.Objects;
 
 abstract public class Plane {
-    String model;
-    private int maxSpeed;
-    private int maxFlightDistance;
-    private int maxLoadCapacity;
+    protected String model;
+    protected int maxSpeed;
+    protected int maxFlightDistance;
+    protected int maxLoadCapacity;
 
     public Plane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity) {
         this.model = model;

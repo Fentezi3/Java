@@ -26,17 +26,23 @@ public class Runner {
             new MilitaryPlane("C-130 Hercules", 650, 5000, 110000, MilitaryType.TRANSPORT)
     );
 
-    public static void main(String[] args) {
+    public static void main (String[] args){
         Airport airport = new Airport(planes);
         Airport militaryAirport = new Airport(airport.getMilitaryPlanes());
+        System.out.println("Military airport planes sorted by max distance: ");
+        for (Plane plane : militaryAirport.sortByMaxDistance().getPlanes()){
+            System.out.println(plane);
+        }
+        System.out.println();
         Airport passengerAirport = new Airport(airport.getPassengerPlanes());
-        System.out.println("Military airport sorted by max distance: " + militaryAirport
-                .sortByMaxDistance()
-                .toString());
-        System.out.println("Passenger airport sorted by max speed: " + passengerAirport
-                .sortPlanesByMaxSpeed()
-                .toString());
-        System.out.println("Plane with max passenger capacity: " + passengerAirport
-                .getPassengerPlaneWithMaxPassengersCapacity());
+        System.out.println("Passenger airport planes sorted by max speed: ");
+        for (Plane plane : passengerAirport.sortPlanesByMaxSpeed().getPlanes()){
+            System.out.println(plane);
+        }
+        System.out.println();
+        System.out.println("Plane with max passenger capacity: ");
+        for (Plane plane : passengerAirport.sortPlanesByMaxLoadCapacity().getPlanes()){
+            System.out.println(plane);
+        }
     }
 }

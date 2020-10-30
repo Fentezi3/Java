@@ -41,7 +41,7 @@ public class AirportTest {
     @Test
     public void testGetTransportMilitaryPlanes() {
         Airport airport = new Airport(planes);
-        List<MilitaryPlane> transportMilitaryPlanes = airport.getTransportMilitaryPlanes();
+        List<MilitaryPlane> transportMilitaryPlanes = airport.filterMilitaryPlanesByType(MilitaryType.TRANSPORT);
         boolean flag = false;
         for (MilitaryPlane militaryPlane : transportMilitaryPlanes) {
             if ((militaryPlane.getType() == MilitaryType.TRANSPORT)) {
@@ -60,7 +60,7 @@ public class AirportTest {
     }
 
     @Test
-    public void test3() {
+    public void testSortedPlaneByMaxLoadCapacity() {
         Airport airport = new Airport(planes);
         airport.sortPlanesByMaxLoadCapacity();
         List<? extends Plane> planesSortedByMaxLoadCapacity = airport.getPlanes();
@@ -80,7 +80,7 @@ public class AirportTest {
     @Test
     public void testHasAtLeastOneBomberInMilitaryPlanes() {
         Airport airport = new Airport(planes);
-        List<MilitaryPlane> bomberMilitaryPlanes = airport.getBomberMilitaryPlanes();
+        List<MilitaryPlane> bomberMilitaryPlanes = airport.filterMilitaryPlanesByType(MilitaryType.BOMBER);
         boolean flag = false;
         for (MilitaryPlane militaryPlane : bomberMilitaryPlanes) {
             if ((militaryPlane.getType() == MilitaryType.BOMBER)) {
