@@ -28,6 +28,10 @@ public class PassengerPlane extends Plane {
     public String toString() {
         return "PassengerPlane{" +
                 "passengersCapacity=" + passengersCapacity +
+                ", model='" + model + '\'' +
+                ", maxSpeed=" + maxSpeed +
+                ", maxFlightDistance=" + maxFlightDistance +
+                ", maxLoadCapacity=" + maxLoadCapacity +
                 '}';
     }
 

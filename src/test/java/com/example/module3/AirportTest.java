@@ -1,9 +1,6 @@
 package com.example.module3;
 
-import com.example.module3.plane.ExperimentalPlane;
-import com.example.module3.plane.MilitaryPlane;
-import com.example.module3.plane.PassengerPlane;
-import com.example.module3.plane.Plane;
+import com.example.module3.plane.*;
 import com.example.module3.models.ClassificationLevel;
 import com.example.module3.models.ExperimentalType;
 import com.example.module3.models.MilitaryType;
@@ -42,14 +39,14 @@ public class AirportTest {
     public void testGetTransportMilitaryPlanes() {
         Airport airport = new Airport(planes);
         List<MilitaryPlane> transportMilitaryPlanes = airport.filterMilitaryPlanesByType(MilitaryType.TRANSPORT);
-        boolean flag = false;
+        boolean containsTransportOnly = true;
         for (MilitaryPlane militaryPlane : transportMilitaryPlanes) {
-            if ((militaryPlane.getType() == MilitaryType.TRANSPORT)) {
-                flag = true;
+            if ((militaryPlane.getType() != MilitaryType.TRANSPORT)) {
+                containsTransportOnly = false;
                 break;
             }
         }
-        Assert.assertEquals(flag, true);
+        Assert.assertTrue(containsTransportOnly, "Airport contains not only transport planes");
     }
 
     @Test
@@ -62,7 +59,7 @@ public class AirportTest {
     @Test
     public void testSortedPlaneByMaxLoadCapacity() {
         Airport airport = new Airport(planes);
-        airport.sortPlanesByMaxLoadCapacity();
+        airport.sortPlanesBy(PlaneComparator.LOAD_CAPACITY);
         List<? extends Plane> planesSortedByMaxLoadCapacity = airport.getPlanes();
 
         boolean nextPlaneMaxLoadCapacityIsHigherThanCurrent = true;
@@ -81,10 +78,10 @@ public class AirportTest {
     public void testHasAtLeastOneBomberInMilitaryPlanes() {
         Airport airport = new Airport(planes);
         List<MilitaryPlane> bomberMilitaryPlanes = airport.filterMilitaryPlanesByType(MilitaryType.BOMBER);
-        boolean flag = false;
+        boolean containsOnlyBomber = false;
         for (MilitaryPlane militaryPlane : bomberMilitaryPlanes) {
             if ((militaryPlane.getType() == MilitaryType.BOMBER)) {
-                flag = true;
+                containsOnlyBomber = true;
             } else {
                 Assert.fail("Test failed!");
             }

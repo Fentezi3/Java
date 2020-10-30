@@ -61,18 +61,8 @@ public class Airport {
         return planeWithMaxCapacity;
     }
 
-    public Airport sortByMaxDistance() {
-        planes.sort(PlaneComparator.MAX_FLIGHT_DISTANCE);
-        return this;
-    }
-
-    public Airport sortPlanesByMaxSpeed() {
-        planes.sort(PlaneComparator.MAX_SPEED);
-        return this;
-    }
-
-    public Airport sortPlanesByMaxLoadCapacity() {
-        planes.sort(PlaneComparator.LOAD_CAPACITY);
+    public Airport sortPlanesBy(PlaneComparator comparator){
+        planes.sort(comparator);
         return this;
     }
 

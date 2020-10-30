@@ -29,6 +29,10 @@ public class ExperimentalPlane extends Plane {
         return "ExperimentalPlane{" +
                 "type=" + type +
                 ", classificationLevel=" + classificationLevel +
+                ", model='" + model + '\'' +
+                ", maxSpeed=" + maxSpeed +
+                ", maxFlightDistance=" + maxFlightDistance +
+                ", maxLoadCapacity=" + maxLoadCapacity +
                 '}';
     }
 

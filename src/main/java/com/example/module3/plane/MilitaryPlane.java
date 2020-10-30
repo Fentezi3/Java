@@ -30,6 +30,10 @@ public class MilitaryPlane extends Plane {
     public String toString() {
         return "MilitaryPlane{" +
                 "type=" + type +
+                ", model='" + model + '\'' +
+                ", maxSpeed=" + maxSpeed +
+                ", maxFlightDistance=" + maxFlightDistance +
+                ", maxLoadCapacity=" + maxLoadCapacity +
                 '}';
     }
 
