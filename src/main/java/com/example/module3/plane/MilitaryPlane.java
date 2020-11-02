@@ -1,27 +1,15 @@
-package com.example.module3.Planes;
+package com.example.module3.plane;
 
-import com.example.module3.models.MilitaryType;
+import com.example.module3.model.MilitaryType;
 
 import java.util.Objects;
 
-public class MilitaryPlane extends Plane{
-
+public class MilitaryPlane extends Plane {
     private MilitaryType type;
 
     public MilitaryPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, MilitaryType type) {
         super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
         this.type = type;
-    }
-
-    public MilitaryType getType() {
-        return type;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString().replace("}",
-                ", type=" + type +
-                '}');
     }
 
     @Override
@@ -36,5 +24,20 @@ public class MilitaryPlane extends Plane{
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), type);
+    }
+
+    @Override
+    public String toString() {
+        return "MilitaryPlane{" +
+                "type=" + type +
+                ", model='" + model + '\'' +
+                ", maxSpeed=" + maxSpeed +
+                ", maxFlightDistance=" + maxFlightDistance +
+                ", maxLoadCapacity=" + maxLoadCapacity +
+                '}';
+    }
+
+    public MilitaryType getType() {
+        return type;
     }
 }

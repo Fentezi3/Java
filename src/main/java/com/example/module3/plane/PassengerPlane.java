@@ -1,37 +1,14 @@
-package com.example.module3.Planes;
+package com.example.module3.plane;
 
 import java.util.Objects;
 
-public class PassengerPlane extends Plane{
-
-    //=================FIELDS=================
+public class PassengerPlane extends Plane {
     private int passengersCapacity;
 
-    //=================CONSTRUCTORS=================
     public PassengerPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, int passengersCapacity) {
         super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
         this.passengersCapacity = passengersCapacity;
     }
-
-
-    //=================METHODS=================
-    public int getPassengersCapacity() {
-        return passengersCapacity;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString().replace("}",
-                ", passengersCapacity=" + passengersCapacity +
-                '}');
-    }
-
-//    @Override
-//    public String toString() {
-//        return super.toString().replace("}",
-//                ", passengersCapacity=" + passengersCapacity +
-//                        '}');
-//    }
 
     @Override
     public boolean equals(Object o) {
@@ -45,5 +22,20 @@ public class PassengerPlane extends Plane{
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), passengersCapacity);
+    }
+
+    @Override
+    public String toString() {
+        return "PassengerPlane{" +
+                "passengersCapacity=" + passengersCapacity +
+                ", model='" + model + '\'' +
+                ", maxSpeed=" + maxSpeed +
+                ", maxFlightDistance=" + maxFlightDistance +
+                ", maxLoadCapacity=" + maxLoadCapacity +
+                '}';
+    }
+
+    public int getPassengersCapacity() {
+        return passengersCapacity;
     }
 }
