@@ -1,8 +1,8 @@
 package com.example.module3;
 
-import com.example.module3.models.ClassificationLevel;
-import com.example.module3.models.ExperimentalType;
-import com.example.module3.models.MilitaryType;
+import com.example.module3.model.ClassificationLevel;
+import com.example.module3.model.ExperimentalType;
+import com.example.module3.model.MilitaryType;
 import com.example.module3.plane.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -39,8 +39,8 @@ public class AirportTest {
     public void testGetTransportMilitaryPlanes() {
         Airport airport = new Airport(planes);
         List<MilitaryPlane> transportMilitaryPlanes = airport.filterMilitaryPlanesByType(MilitaryType.TRANSPORT);
-        boolean containsTransportOnly = TestServices.transportMilitaryPlane(transportMilitaryPlanes);
-        Assert.assertTrue(containsTransportOnly, "Airport contains not only transport planes");
+        Assert.assertTrue(TestService.onlyTransportTypeInMilitaryPlanes(transportMilitaryPlanes),
+                "Airport contains not only transport planes");
     }
 
     @Test
@@ -55,25 +55,21 @@ public class AirportTest {
         Airport airport = new Airport(planes);
         airport.sortPlanesBy(PlaneComparator.LOAD_CAPACITY);
         List<? extends Plane> planesSortedByMaxLoadCapacity = airport.getPlanes();
-        boolean nextPlaneMaxLoadCapacityIsHigherThanCurrent = TestServices
-                .sortedPlaneByMaxLoadCapacity(planesSortedByMaxLoadCapacity);
-        Assert.assertTrue(nextPlaneMaxLoadCapacityIsHigherThanCurrent);
+        Assert.assertTrue(TestService
+                .sortCheckPlaneByMaxLoadCapacity(planesSortedByMaxLoadCapacity));
     }
 
     @Test
     public void testHasAtLeastOneBomberInMilitaryPlanes() {
         Airport airport = new Airport(planes);
         List<MilitaryPlane> bomberMilitaryPlanes = airport.filterMilitaryPlanesByType(MilitaryType.BOMBER);
-        boolean containsOnlyBomber =TestServices.hasAtLeastOneBomberInMilitaryPlanes(bomberMilitaryPlanes);
-        Assert.assertTrue(containsOnlyBomber);
+        Assert.assertTrue(TestService.hasAtLeastOneBomberInMilitaryPlanes(bomberMilitaryPlanes));
     }
 
     @Test
     public void testExperimentalPlanesHasClassificationLevelHigherThanUnclassified() {
         Airport airport = new Airport(planes);
         List<ExperimentalPlane> experimentalPlanes = airport.getExperimentalPlanes();
-        boolean hasUnclassifiedPlanes = TestServices
-                .ExperimentalPlanesHasClassificationLevelHigherThanUnclassified(experimentalPlanes);
-        Assert.assertTrue(hasUnclassifiedPlanes);
+        Assert.assertTrue(TestService.experimentalPlanesHaveClassificationLevelHigherThanUnclassified(experimentalPlanes));
     }
 }

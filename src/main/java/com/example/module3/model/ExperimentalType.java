@@ -1,4 +1,4 @@
-package com.example.module3.models;
+package com.example.module3.model;
 
 public enum ExperimentalType {
     LIFTING_BODY, HYPERSONIC, HIGH_ALTITUDE, VTOL

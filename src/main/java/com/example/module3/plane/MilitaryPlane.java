@@ -1,6 +1,6 @@
 package com.example.module3.plane;
 
-import com.example.module3.models.MilitaryType;
+import com.example.module3.model.MilitaryType;
 
 import java.util.Objects;
 

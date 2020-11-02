@@ -1,7 +1,7 @@
 package com.example.module3.plane;
 
-import com.example.module3.models.ClassificationLevel;
-import com.example.module3.models.ExperimentalType;
+import com.example.module3.model.ClassificationLevel;
+import com.example.module3.model.ExperimentalType;
 
 public class ExperimentalPlane extends Plane {
     private ExperimentalType type;
