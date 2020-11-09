@@ -10,8 +10,8 @@ public class Washer extends ElectricDevice implements ICleaner {
     public Washer(int power, boolean isSwitchedOn) {
         super(power, isSwitchedOn);
     }
-
-    public void cleaner() {
+    @Override
+    public void clean() {
         System.out.println("I can wash your clothes.");
     }
 }

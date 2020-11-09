@@ -10,8 +10,8 @@ public class Microwave extends ElectricDevice implements ICooking {
     public Microwave(int power, boolean isSwitchedOn) {
         super(power, isSwitchedOn);
     }
-
-    public void cooking() {
+@Override
+    public void cook() {
         System.out.println("I can warm up your food.");
     }
 }

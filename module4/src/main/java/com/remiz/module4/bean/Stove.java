@@ -10,8 +10,8 @@ public class Stove extends ElectricDevice implements ICooking {
     public Stove(int power, boolean isSwitchedOn) {
         super(power, isSwitchedOn);
     }
-
-    public void cooking() {
+    @Override
+    public void cook() {
         System.out.println("I can boil and fry your food.");
     }
 }

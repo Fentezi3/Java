@@ -10,8 +10,8 @@ public class VacuumCleaner extends ElectricDevice implements ICleaner {
     public VacuumCleaner(int power, boolean isSwitchedOn) {
         super(power, isSwitchedOn);
     }
-
-    public void cleaner() {
+    @Override
+    public void clean() {
         System.out.println("I can clean floor in your flat.");
     }
 }

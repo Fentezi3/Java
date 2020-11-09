@@ -10,7 +10,7 @@ public class Heater extends ElectricDevice implements IChangeTemperature {
     public Heater(int power, boolean isSwitchedOn) {
         super(power, isSwitchedOn);
     }
-
+    @Override
     public void changeTemperature() {
         System.out.println("I warm the room.");
     }

@@ -10,7 +10,7 @@ public class Computer extends ElectricDevice implements IEntertain {
     public Computer(int power, boolean isSwitchedOn) {
         super(power, isSwitchedOn);
     }
-
+    @Override
     public void entertain() {
         System.out.println("I help you with your work.");
     }
