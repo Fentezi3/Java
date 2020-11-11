@@ -10,6 +10,7 @@ public class AirConditioner extends ElectricDevice implements IChangeTemperature
     public AirConditioner(int power, boolean isSwitchedOn) {
         super(power, isSwitchedOn);
     }
+
 @Override
     public void changeTemperature() {
         System.out.println("I can cool cool the air.");

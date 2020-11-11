@@ -21,6 +21,7 @@ public abstract class ElectricDevice implements ISwitchOn {
         this.isSwitchedOn = isSwitchedOn;
     }
 
+    @Override
     public void switchOn() {
         if (isSwitchedOn) {
             System.out.println("The devise is already on.");

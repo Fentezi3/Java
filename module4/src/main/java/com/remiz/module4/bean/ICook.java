@@ -1,5 +1,5 @@
 package com.remiz.module4.bean;
 
-public interface ICooking {
+public interface ICook {
     void cook();
 }

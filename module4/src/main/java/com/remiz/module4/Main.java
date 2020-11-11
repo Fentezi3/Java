@@ -18,7 +18,7 @@ public class Main {
     private final static int OPTION_SORT_DEVICES_BY_POWER = 3;
     private final static int OPTION_FIND_DEVICES_BY_POWER_RANGE = 4;
     private final static int OPTION_CHOOSE_DEVICES_BY_THEIR_ACTION = 5;
-    private final static int OPTION_FINISH_WORK = 6;
+    private final static int OPTION_FINISH_WORK = -1;
 
     private final static int POWER_VERY_LOW = 150;
     private final static int POWER_LOW = 450;
@@ -29,64 +29,63 @@ public class Main {
     private final static int INPUT_MINIMAL_RANGE = 1;
     private final static int INPUT_MIDDLE_RANGE = 2;
     private final static int INPUT_MAXIMAL_RANGE = 3;
-    private final static int INPUT_FINISH_WORK = 4;
 
     private final static int ACTIONS_BY_CLEANING_DEVICES = 1;
     private final static int ACTIONS_BY_COOKING_DEVICES = 2;
     private final static int ACTION_BY_ENTERTAINING_DEVICES = 3;
     private final static int ACTION_BY_CHANGING_TEMPERATURE_DEVICES = 4;
-    private final static int FINISH_WORK = 5;
+    protected static List<ElectricDevice> devicesList;
 
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
 
-        JAXBContext context = JAXBContext.newInstance(ElectricDevice.class, AirConditioner.class, Computer.class,
-                DishWasher.class, Fridge.class, Heater.class, Microwave.class, Multicooker.class, PS.class, Stove.class,
-                TV.class, VacuumCleaner.class, Washer.class, Devices.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        Devices unmarshalledDevices = (Devices) unmarshaller.unmarshal(new FileReader("./devices.xml"));
-        System.out.println(unmarshalledDevices.toString());
-
-        List<ElectricDevice> devicesList = unmarshalledDevices.getDeviceList();
+        devicesList = unmarshallingDevicesFromFile();
 
         ScannerWrapper scanner = new ScannerWrapper();
         int check = 0;
         try {
             while (check != 1) {
+                String outputText;
                 scanner.openScanner();
-                System.out.println("-1.Switched on devise\n-2.Calculate the power sum consumption" +
+                outputText = String.format("-1.Switched on devise\n-2.Calculate the power sum consumption" +
                         "\n-3.Sort devices by power\n-4.Find the required device by range\n-5.What devices can do?" +
-                        "\n-6.Finish work");
+                        "\n-(-1).Finish work", OPTION_FINISH_WORK);
+                System.out.println(outputText);
                 int option = scanner.readInput();
                 switch (option) {
                     case OPTION_CHOOSE_SWITCHED_ON_DEVICES:
-                        switchOnDevices(devicesList);
+                        switchOnDevices();
                         System.out.println();
                         break;
                     case OPTION_CALCULATE_SUM_POWER:
-                        calculateSumPower(devicesList);
+                        calculateSumPower();
                         System.out.println();
                         break;
                     case OPTION_SORT_DEVICES_BY_POWER:
-                        sortElectricDevicesByPower(devicesList);
+                        sortElectricDevicesByPower();
                         System.out.println();
                         break;
                     case OPTION_FIND_DEVICES_BY_POWER_RANGE:
+                        outputText = String.format("Choose a suitable power range:\n-1.%d - %d\n-2.%d - %d\n" +
+                                        "-3.%d - %d\n-(%d).Go to main menu", POWER_VERY_LOW, POWER_LOW, POWER_MIDDLE,
+                                POWER_HIGH, POWER_VERY_HIGH, POWER_EXTRA_HIGH, OPTION_FINISH_WORK);
                         do {
-                            System.out.println("Choose a suitable power range:\n-1.150-450\n-2.900-1000\n-3.1000-1500" +
-                                    "\n-4.Go to main menu");
+                            System.out.println(outputText);
                             option = scanner.readInput();
-                            findDeviceByRange(option, devicesList);
+                            findDevicesByRange(option);
                             System.out.println();
-                        } while (option != INPUT_FINISH_WORK);
+                        } while (option != OPTION_FINISH_WORK);
                         break;
                     case OPTION_CHOOSE_DEVICES_BY_THEIR_ACTION:
+                        outputText = String.format("What doing:\n-%d.cleaning devices\n-%d.cooking devices\n" +
+                                        "-%d.entertaining devices\n-%d.changing temperature devices\n" +
+                                        "-(%d).Go to main menu", ACTIONS_BY_CLEANING_DEVICES, ACTIONS_BY_COOKING_DEVICES,
+                                ACTION_BY_ENTERTAINING_DEVICES, ACTION_BY_CHANGING_TEMPERATURE_DEVICES, OPTION_FINISH_WORK);
                         do {
-                            System.out.println("What doing:\n-1.cleaning devices\n-2.cooking devices\n" +
-                                    "-3.entertaining devices\n-4.changing temperature devices\n-5.Go to main menu");
+                            System.out.println(outputText);
                             option = scanner.readInput();
-                            outputDeviceAction(check, devicesList);
+                            outputDeviceAction(option);
                             System.out.println();
-                        } while (option != FINISH_WORK);
+                        } while (option != OPTION_FINISH_WORK);
                         break;
                     case OPTION_FINISH_WORK:
                         System.out.println("Bye-bye!");
@@ -94,7 +93,7 @@ public class Main {
                         check = 1;
                         break;
                     default:
-                        System.out.println("Please,enter number from 1 to 6");
+                        System.out.println("Please,enter...");
                         System.out.println();
                         break;
                 }
@@ -104,14 +103,25 @@ public class Main {
         }
     }
 
-    private static void switchOnDevices(List<ElectricDevice> devicesList) {
+    private static List unmarshallingDevicesFromFile() throws JAXBException, FileNotFoundException {
+        JAXBContext context = JAXBContext.newInstance(ElectricDevice.class, AirConditioner.class, Computer.class,
+                DishWasher.class, Fridge.class, Heater.class, Microwave.class, Multicooker.class, PS.class, Stove.class,
+                TV.class, VacuumCleaner.class, Washer.class, Devices.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        Devices unmarshalledDevices = (Devices) unmarshaller.unmarshal(new FileReader(
+                "src\\main\\resources\\devices.xml"));
+        List<ElectricDevice> devicesList = unmarshalledDevices.getDeviceList();
+        return devicesList;
+    }
+
+    private static void switchOnDevices() {
         for (ElectricDevice device : devicesList) {
             device.switchOn();
             System.out.println(device);
         }
     }
 
-    private static void calculateSumPower(List<ElectricDevice> devicesList) {
+    private static void calculateSumPower() {
         int sumPower = 0;
         for (ElectricDevice device : devicesList) {
             sumPower += device.getPower();
@@ -119,92 +129,101 @@ public class Main {
         System.out.println(sumPower);
     }
 
-    private static void sortElectricDevicesByPower(List<ElectricDevice> devicesList) {
-        Comparator<ElectricDevice> compare = Comparator.comparing(ElectricDevice::getPower);
-        devicesList.sort(compare);
+    private static void sortElectricDevicesByPower() {
+        Comparator<ElectricDevice> comparator = Comparator.comparing(ElectricDevice::getPower);
+        devicesList.sort(comparator);
         for (ElectricDevice device : devicesList) {
             System.out.println(device.toString());
         }
     }
 
-    private static void findDeviceByRange(int option, List<ElectricDevice> devicesList) {
-        Comparator<ElectricDevice> compare = Comparator.comparing(ElectricDevice::getPower);
-        List<ElectricDevice> minRange = new ArrayList<>();
-        List<ElectricDevice> middleRange = new ArrayList<>();
-        List<ElectricDevice> maxRange = new ArrayList<>();
-        for (ElectricDevice device : devicesList) {
-            if (device.getPower() >= POWER_VERY_LOW && device.getPower() <= POWER_LOW) {
-                minRange.add(device);
-            } else if (device.getPower() >= POWER_MIDDLE && device.getPower() <= POWER_HIGH) {
-                middleRange.add(device);
-            } else if (device.getPower() >= POWER_VERY_HIGH && device.getPower() <= POWER_EXTRA_HIGH) {
-                maxRange.add(device);
-            }
-        }
+    private static void findDevicesByRange(int option) {
         switch (option) {
             case INPUT_MINIMAL_RANGE:
-                minRange.sort(compare);
-                for (ElectricDevice device : minRange) {
-                    System.out.println(device);
-                }
+                printSortedDeviceListWithPowerInRange(POWER_VERY_LOW, POWER_LOW);
+                break;
             case INPUT_MIDDLE_RANGE:
-                middleRange.sort(compare);
-                for (ElectricDevice device : middleRange) {
-                    System.out.println(device);
-                }
+                printSortedDeviceListWithPowerInRange(POWER_MIDDLE, POWER_HIGH);
+                break;
             case INPUT_MAXIMAL_RANGE:
-                maxRange.sort(compare);
-                for (ElectricDevice device : maxRange) {
-                    System.out.println(device);
-                }
-            case INPUT_FINISH_WORK:
+                printSortedDeviceListWithPowerInRange(POWER_VERY_HIGH, POWER_EXTRA_HIGH);
+                break;
+            case OPTION_FINISH_WORK:
                 System.out.println("Bye!");
+                break;
             default:
-                System.out.println("Please, enter number from 1 to 4");
+                System.out.println("Please, enter ...");
+                break;
         }
     }
 
-    private static void outputDeviceAction(int option, List<ElectricDevice> devicesList) {
-        List<ICleaner> cleaningDevices = new ArrayList<>();
-        List<ICooking> cookingDevices = new ArrayList<>();
-        List<IEntertain> entertainDevices = new ArrayList<>();
-        List<IChangeTemperature> changeTemperaturesDevices = new ArrayList<>();
+    private static void printSortedDeviceListWithPowerInRange(int lowerRangeBound, int upperRangeBound) {
+        Comparator<ElectricDevice> comparator = Comparator.comparing(ElectricDevice::getPower);
+        List<ElectricDevice> devices = new ArrayList<>();
         for (ElectricDevice device : devicesList) {
-            if (device instanceof ICleaner) {
-                cleaningDevices.add((ICleaner) device);
-            } else if (device instanceof IChangeTemperature) {
-                changeTemperaturesDevices.add((IChangeTemperature) device);
-            } else if (device instanceof ICooking) {
-                cookingDevices.add((ICooking) device);
-            } else if (device instanceof IEntertain) {
-                entertainDevices.add((IEntertain) device);
+            if (device.getPower() >= lowerRangeBound && device.getPower() <= upperRangeBound) {
+                devices.add(device);
+                devices.sort(comparator);
             }
         }
+        for (ElectricDevice rangedDevice : devices) {
+            System.out.println(rangedDevice);
+        }
+    }
+
+    private static void outputDeviceAction(int option) {
+        List<ElectricDevice> deviceActionList = new ArrayList<>();
         switch (option) {
             case ACTIONS_BY_CLEANING_DEVICES:
-                for (ICleaner device : cleaningDevices) {
-                    System.out.println(device);
-                    device.clean();
+                for (ElectricDevice device : devicesList) {
+                    if (device instanceof IClean) {
+                        deviceActionList.add(device);
+                    }
                 }
+                for (ElectricDevice clean : deviceActionList) {
+                    System.out.println(clean);
+                    ((IClean) clean).clean();
+                }
+                break;
             case ACTIONS_BY_COOKING_DEVICES:
-                for (ICooking device : cookingDevices) {
-                    System.out.println(device);
-                    device.cook();
+                for (ElectricDevice device : devicesList) {
+                    if (device instanceof ICook) {
+                        deviceActionList.add(device);
+                    }
                 }
+                for (ElectricDevice cook : deviceActionList) {
+                    System.out.println(cook);
+                    ((ICook) cook).cook();
+                }
+                break;
             case ACTION_BY_ENTERTAINING_DEVICES:
-                for (IEntertain device : entertainDevices) {
-                    System.out.println(device);
-                    device.entertain();
+                for (ElectricDevice device : devicesList) {
+                    if (device instanceof IEntertain) {
+                        deviceActionList.add(device);
+                    }
                 }
+                for (ElectricDevice entertain : deviceActionList) {
+                    System.out.println(entertain);
+                    ((IEntertain) entertain).entertain();
+                }
+                break;
             case ACTION_BY_CHANGING_TEMPERATURE_DEVICES:
-                for (IChangeTemperature device : changeTemperaturesDevices) {
-                    System.out.println(device);
-                    device.changeTemperature();
+                for (ElectricDevice device : devicesList) {
+                    if (device instanceof IChangeTemperature) {
+                        deviceActionList.add(device);
+                    }
                 }
-            case FINISH_WORK:
+                for (ElectricDevice temperature : deviceActionList) {
+                    System.out.println(temperature);
+                    ((IChangeTemperature) temperature).changeTemperature();
+                }
+                break;
+            case OPTION_FINISH_WORK:
                 System.out.println("Bye!");
+                break;
             default:
-                System.out.println("Please, enter number from 1 to 4");
+                System.out.println("Please, enter...");
+                break;
         }
     }
 }

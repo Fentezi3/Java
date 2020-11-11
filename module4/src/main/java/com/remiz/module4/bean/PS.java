@@ -10,6 +10,7 @@ public class PS extends ElectricDevice implements IEntertain {
     public PS(int power, boolean isSwitchedOn) {
         super(power, isSwitchedOn);
     }
+
     @Override
     public void entertain() {
         System.out.println("I can run games.");

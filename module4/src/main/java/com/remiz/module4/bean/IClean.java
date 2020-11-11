@@ -1,5 +1,5 @@
 package com.remiz.module4.bean;
 
-public interface ICleaner {
+public interface IClean {
     void clean();
 }
