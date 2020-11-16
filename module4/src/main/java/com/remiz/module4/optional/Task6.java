@@ -7,12 +7,12 @@ import java.util.*;
 public class Task6 {
     public static void main(String[] args) {
         List list = new ArrayList();
-        try (Scanner scanner = new Scanner(new File("src\\main\\resources\\string.txt"))) {
+        try (Scanner scanner = new Scanner(new File("src/main/resources/string.txt"))) {
             while (scanner.hasNextLine()) {
                 list.add(scanner.nextLine());
             }
             Collections.sort(list, Comparator.comparing(String::length));
-            System.out.println(list);
+            System.out.println("Lines by length: " + list);
         } catch (IOException e) {
             e.printStackTrace();
         }

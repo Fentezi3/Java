@@ -24,9 +24,10 @@ public abstract class ElectricDevice implements ISwitchOn {
     @Override
     public void switchOn() {
         if (isSwitchedOn) {
-            System.out.println("The devise is already on.");
+            System.out.println("The device is already on.");
         } else {
             System.out.println("Activate!");
+            isSwitchedOn = true;
         }
     }
 
@@ -44,9 +45,9 @@ public abstract class ElectricDevice implements ISwitchOn {
 
     @Override
     public String toString() {
-        return "ElectricDevices{" +
+        return "ElectricDevice{" +
                 "power=" + power +
-                ", switchOn=" + isSwitchedOn +
+                ", isSwitchedOn=" + isSwitchedOn +
                 '}';
     }
 }

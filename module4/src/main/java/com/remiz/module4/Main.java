@@ -13,7 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Main {
-    private final static int OPTION_CHOOSE_SWITCHED_ON_DEVICES = 1;
+    private final static int OPTION_SWITCH_DEVICES_ON = 1;
     private final static int OPTION_CALCULATE_SUM_POWER = 2;
     private final static int OPTION_SORT_DEVICES_BY_POWER = 3;
     private final static int OPTION_FIND_DEVICES_BY_POWER_RANGE = 4;
@@ -34,25 +34,28 @@ public class Main {
     private final static int ACTIONS_BY_COOKING_DEVICES = 2;
     private final static int ACTION_BY_ENTERTAINING_DEVICES = 3;
     private final static int ACTION_BY_CHANGING_TEMPERATURE_DEVICES = 4;
-    protected static List<ElectricDevice> devicesList;
+    private static List<ElectricDevice> devicesList = new ArrayList<>();
 
-    public static void main(String[] args) throws JAXBException, FileNotFoundException {
-
+    public static void main(String[] args) {
         devicesList = unmarshallingDevicesFromFile();
 
         ScannerWrapper scanner = new ScannerWrapper();
         int check = 0;
         try {
-            while (check != 1) {
+            while (check != OPTION_FINISH_WORK) {
                 String outputText;
                 scanner.openScanner();
-                outputText = String.format("-1.Switched on devise\n-2.Calculate the power sum consumption" +
-                        "\n-3.Sort devices by power\n-4.Find the required device by range\n-5.What devices can do?" +
-                        "\n-(-1).Finish work", OPTION_FINISH_WORK);
+                outputText = "Please, choose option:"
+                        + String.format("\n-%2d.Switched on devise", OPTION_SWITCH_DEVICES_ON)
+                        + String.format("\n-%2d.Calculate the power sum consumption", OPTION_CALCULATE_SUM_POWER)
+                        + String.format("\n-%2d.Sort devices by power", OPTION_SORT_DEVICES_BY_POWER)
+                        + String.format("\n-%2d.Find the required device by range", OPTION_FIND_DEVICES_BY_POWER_RANGE)
+                        + String.format("\n-%2d.What devices can do?", OPTION_CHOOSE_DEVICES_BY_THEIR_ACTION)
+                        + String.format("\n-(%2d).Finish work", OPTION_FINISH_WORK);
                 System.out.println(outputText);
                 int option = scanner.readInput();
                 switch (option) {
-                    case OPTION_CHOOSE_SWITCHED_ON_DEVICES:
+                    case OPTION_SWITCH_DEVICES_ON:
                         switchOnDevices();
                         System.out.println();
                         break;
@@ -65,9 +68,11 @@ public class Main {
                         System.out.println();
                         break;
                     case OPTION_FIND_DEVICES_BY_POWER_RANGE:
-                        outputText = String.format("Choose a suitable power range:\n-1.%d - %d\n-2.%d - %d\n" +
-                                        "-3.%d - %d\n-(%d).Go to main menu", POWER_VERY_LOW, POWER_LOW, POWER_MIDDLE,
-                                POWER_HIGH, POWER_VERY_HIGH, POWER_EXTRA_HIGH, OPTION_FINISH_WORK);
+                        outputText = "Choose a suitable power range:\n"
+                                + String.format("-%2d. %dW - %dW\n", INPUT_MINIMAL_RANGE, POWER_VERY_LOW, POWER_LOW)
+                                + String.format("-%2d. %dW - %dW\n", INPUT_MIDDLE_RANGE, POWER_MIDDLE, POWER_HIGH)
+                                + String.format("-%2d. %dW - %dW\n", INPUT_MAXIMAL_RANGE, POWER_VERY_HIGH, POWER_EXTRA_HIGH)
+                                + String.format("-(%2d).Go to main menu", OPTION_FINISH_WORK);
                         do {
                             System.out.println(outputText);
                             option = scanner.readInput();
@@ -76,10 +81,12 @@ public class Main {
                         } while (option != OPTION_FINISH_WORK);
                         break;
                     case OPTION_CHOOSE_DEVICES_BY_THEIR_ACTION:
-                        outputText = String.format("What doing:\n-%d.cleaning devices\n-%d.cooking devices\n" +
-                                        "-%d.entertaining devices\n-%d.changing temperature devices\n" +
-                                        "-(%d).Go to main menu", ACTIONS_BY_CLEANING_DEVICES, ACTIONS_BY_COOKING_DEVICES,
-                                ACTION_BY_ENTERTAINING_DEVICES, ACTION_BY_CHANGING_TEMPERATURE_DEVICES, OPTION_FINISH_WORK);
+                        outputText = "What doing:\n"
+                                + String.format("-%d.cleaning devices\n", ACTIONS_BY_CLEANING_DEVICES)
+                                + String.format("-%d.cooking devices\n", ACTIONS_BY_COOKING_DEVICES)
+                                + String.format("-%d.entertaining devices\n", ACTION_BY_ENTERTAINING_DEVICES)
+                                + String.format("-%d.changing temperature devices\n", ACTION_BY_CHANGING_TEMPERATURE_DEVICES)
+                                + String.format("-(%d).Go to main menu", OPTION_FINISH_WORK);
                         do {
                             System.out.println(outputText);
                             option = scanner.readInput();
@@ -90,7 +97,7 @@ public class Main {
                     case OPTION_FINISH_WORK:
                         System.out.println("Bye-bye!");
                         System.out.println();
-                        check = 1;
+                        check = OPTION_FINISH_WORK;
                         break;
                     default:
                         System.out.println("Please,enter...");
@@ -103,13 +110,28 @@ public class Main {
         }
     }
 
-    private static List unmarshallingDevicesFromFile() throws JAXBException, FileNotFoundException {
-        JAXBContext context = JAXBContext.newInstance(ElectricDevice.class, AirConditioner.class, Computer.class,
-                DishWasher.class, Fridge.class, Heater.class, Microwave.class, Multicooker.class, PS.class, Stove.class,
-                TV.class, VacuumCleaner.class, Washer.class, Devices.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        Devices unmarshalledDevices = (Devices) unmarshaller.unmarshal(new FileReader(
-                "src\\main\\resources\\devices.xml"));
+    private static List<ElectricDevice> unmarshallingDevicesFromFile() {
+        JAXBContext context = null;
+        try {
+            context = JAXBContext.newInstance(ElectricDevice.class, AirConditioner.class, Computer.class,
+                    DishWasher.class, Fridge.class, Heater.class, Microwave.class, Multicooker.class, PS.class, Stove.class,
+                    TV.class, VacuumCleaner.class, Washer.class, Devices.class);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        Unmarshaller unmarshaller = null;
+        try {
+            unmarshaller = context.createUnmarshaller();
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        Devices unmarshalledDevices = null;
+        try {
+            unmarshalledDevices = (Devices) unmarshaller.unmarshal(new FileReader(
+                    "src/main/resources/devices.xml"));
+        } catch (JAXBException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
         List<ElectricDevice> devicesList = unmarshalledDevices.getDeviceList();
         return devicesList;
     }
@@ -126,7 +148,7 @@ public class Main {
         for (ElectricDevice device : devicesList) {
             sumPower += device.getPower();
         }
-        System.out.println(sumPower);
+        System.out.println("All devices summary power: " + sumPower);
     }
 
     private static void sortElectricDevicesByPower() {
