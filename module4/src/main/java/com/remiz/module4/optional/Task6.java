@@ -12,7 +12,7 @@ public class Task6 {
                 list.add(scanner.nextLine());
             }
             Collections.sort(list, Comparator.comparing(String::length));
-            System.out.println("Lines by length: " + list);
+            System.out.println("Lines sorted by length: " + list);
         } catch (IOException e) {
             e.printStackTrace();
         }

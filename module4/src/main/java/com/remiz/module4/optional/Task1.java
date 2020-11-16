@@ -15,10 +15,10 @@ public class Task1 {
         List<String> list = new LinkedList<>();
         try (Scanner scanner = new Scanner(new File("src/main/resources/string.txt"));
              FileWriter writer = new FileWriter(new File("src/main/resources/output.txt"))) {
+            System.out.println("We're scanning and reading information from file.\n");
             while (scanner.hasNextLine()) {
                 list.add(scanner.nextLine());
             }
-            System.out.println("We're scanning and reading information from this file.\n");
             for (int i = list.size() - 1; i >= 0; i--) {
                 writer.write(list.get(i) + "\n");
             }
