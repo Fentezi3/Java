@@ -3,35 +3,35 @@ package bean;
 import java.util.List;
 
 public class Group {
-    int groupName;
-    List<Student> studentsList;
+    private int name;
+    private List<Student> studentList;
 
     public Group(int groupName, List<Student> studentsList) {
-        this.groupName = groupName;
-        this.studentsList = studentsList;
+        this.name = groupName;
+        this.studentList = studentsList;
     }
 
-    public int getGroupName() {
-        return groupName;
+    public int getName() {
+        return name;
     }
 
-    public void setGroupName(int groupName) {
-        this.groupName = groupName;
+    public void setName(int name) {
+        this.name = name;
     }
 
-    public List<Student> getStudentsList() {
-        return studentsList;
+    public List<Student> getStudentList() {
+        return studentList;
     }
 
-    public void setStudentsList(List<Student> studentsList) {
-        this.studentsList = studentsList;
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
     }
 
     @Override
     public String toString() {
         return "Group{" +
-                "groupName=" + groupName +
-                ", studentsList=" + studentsList +
+                "groupName=" + name +
+                ", studentsList=" + studentList +
                 '}';
     }
 }

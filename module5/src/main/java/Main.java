@@ -1,4 +1,5 @@
 import bean.*;
+import exceptions.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,94 +13,151 @@ public class Main {
             validateFacultyGroupStudentsSubjectIsEmpty(facultyList);
             calculateAverageGradeForEachStudent(facultyList);
             System.out.println();
-            averageGradeBySubjectInOneGroup(facultyList, "Math", 1, "English");
+            calculateAverageGradeInOneGroup(facultyList, "Math", 1, "English");
             System.out.println();
-            averageGradeForOneSubjectInUniversity(facultyList, "Math");
+            calculateAverageGradeForOneSubjectInUniversity(facultyList, "Math");
         } catch (MyException e) {
             e.getStackTrace();
         }
     }
 
+    /**
+     * This method validate what this data is not null.
+     * @param facultyList all faculty in university in 1 list.
+     * @throws MyException parent class for all exceptions in this app
+     */
     private static void validateFacultyGroupStudentsSubjectIsEmpty(List<Faculty> facultyList) throws MyException {
+        /**
+         * Faculty list can't be empty.
+         */
         if (facultyList.isEmpty()) {
-            throw new EmptyFacultyListException("You haven't faculty in university.");
+            /**
+             * @throws EmptyFacultyListException if faculty list is empty -  write about this in console.
+             */
+            throw new EmptyFacultyListException("There is no faculties in university.");
         }
         for (Faculty faculty : facultyList) {
+            /**
+             * Checks groups in every faculty.
+             */
             if (faculty.getGroups().isEmpty()) {
-                throw new EmptyFacultyGroupsException("You haven't group in " + faculty.getFacultyName() + " faculty");
+                /**
+                 * @throws EmptyFacultyGroupsException if faculty hasn't group, we write exception massage.
+                 */
+                throw new EmptyFacultyGroupsException("There is no group in " + faculty.getName() + " faculty");
             }
             for (Group group : faculty.getGroups()) {
-                if (group.getStudentsList().isEmpty()) {
-                    throw new EmptyStudentListException("You haven't students in " + group.getGroupName() + " group.");
+                /**
+                 * Each group need has students.
+                 */
+                if (group.getStudentList().isEmpty()) {
+                    /**
+                     * @throws EmptyStudentListException if group is empty, write message.
+                     */
+                    throw new EmptyStudentListException("There is no students in " + group.getName() + " group.");
                 }
-                for (Student students : group.getStudentsList()) {
+                for (Student students : group.getStudentList()) {
+                    /**
+                     * Every student need have some subject.
+                     */
                     if (students.getSubjects().isEmpty()) {
-                        throw new EmptySubjectException("In " + students.getStudentName() + " hasn't subjects");
+                        /**
+                         * @throws EmptySubjectException if student hasn't subject - write message about this.
+                         */
+                        throw new EmptySubjectException("There is " + students.getName() + " no subjects");
                     }
                 }
             }
         }
     }
 
+    /**
+     * Calculate average grade for all subjects for each student.
+     * @param facultyList all faculty in university.
+     */
     private static void calculateAverageGradeForEachStudent(List<Faculty> facultyList) {
-        List<Student> studentsList = new ArrayList<Student>();
+        List<Student> studentsList = new ArrayList();
         for (Faculty faculty : facultyList) {
             for (Group group : faculty.getGroups()) {
-                studentsList.addAll(group.getStudentsList());
+                /**
+                 * Sort out all faculty and groups. Find each student and add in studentsList.
+                 */
+                studentsList.addAll(group.getStudentList());
             }
         }
         for (Student student : studentsList) {
+            /**
+             * Take each student and calculate average grade for all subjects.
+             */
             Map<String, Integer> subjects = student.getSubjects();
-            int sum = 0;
-            for (Integer grade : subjects.values()) {
-                sum += grade;
-            }
+            int sum = student.getSubjects().values().stream().mapToInt(Integer::intValue).sum();
             float average = sum / (float) subjects.size();
-            System.out.println(student.getStudentName() + "'s average grade is" + " - " + average);
+            String textPrint = String.format( "%s's average grade: %s%n", student.getName(), average);
+            System.out.println(textPrint);
         }
     }
 
-    private static void averageGradeBySubjectInOneGroup(List<Faculty> facultyList, String facultyName,
+    /**
+     * Calculation average grade in particular faculty and group, on a particular subject.
+     * @param facultyList all faculty in university.
+     * @param facultyName particular faculty for calculation.
+     * @param groupName particular group for calculation.
+     * @param subjectName particular subject for calculation.
+     */
+    private static void calculateAverageGradeInOneGroup(List<Faculty> facultyList, String facultyName,
                                                         int groupName, String subjectName) {
         float sum = 0;
         float average;
-        int check = 0;
-        List<Student> studentList = new ArrayList<Student>();
+        int counter = 0;
+        List<Student> studentList = new ArrayList<>();
         for (Faculty faculty : facultyList) {
-            if (faculty.getFacultyName().equals(facultyName)) {
+            if (faculty.getName().equals(facultyName)) {
                 for (Group group : faculty.getGroups()) {
-                    if (group.getGroupName() == groupName) {
-                        studentList = group.getStudentsList();
+                    if (group.getName() == groupName) {
+                        /**
+                         * Create student's list from given faculty and group.
+                         */
+                        studentList = group.getStudentList();
                     }
                 }
             }
         }
         for (Student student : studentList) {
-            if (student.getSubjects().containsKey(subjectName)) {
-                sum += student.getSubjects().get(subjectName);
-                check++;
+            /**
+             * Find given subject in the each student, sum up graduate for this subject, and calculate average.
+             */
+            Map<String, Integer> subjects = student.getSubjects();
+            if (subjects.containsKey(subjectName)) {
+                sum += subjects.get(subjectName);
+                counter++;
             }
         }
-        average = sum / check;
-        System.out.println("Average grade in" + " " + facultyName + " " + "faculty," + " " + groupName + " " +
-                "group, for " + subjectName + " is - " + average);
+        average = sum / counter;
+        System.out.println("Average grade in " + facultyName + " faculty, " + groupName +
+                " group, for " + subjectName + " : " + average);
     }
 
-    private static void averageGradeForOneSubjectInUniversity(List<Faculty> facultyList, String enteredSubject) {
+    /**
+     * Calculation average grade for given subject in all university.
+     * @param facultyList all faculty in university.
+     * @param subjectName given subject.
+     */
+    private static void calculateAverageGradeForOneSubjectInUniversity(List<Faculty> facultyList, String subjectName) {
         float sum = 0;
-        int check = 0;
+        int counter = 0;
         for (Faculty faculty : facultyList) {
             for (Group group : faculty.getGroups()) {
-                for (Student students : group.getStudentsList()) {
-                    if (students.getSubjects().containsKey(enteredSubject)) {
-                        sum += students.getSubjects().get(enteredSubject);
-                        check++;
+                for (Student students : group.getStudentList()) {
+                    Map<String, Integer> subjects = students.getSubjects();
+                    if (subjects.containsKey(subjectName)) {
+                        sum += subjects.get(subjectName);
+                        counter++;
                     }
                 }
             }
         }
-        float average = sum / check;
-        System.out.println("Average grade for " + enteredSubject + " in all university is - " + average);
+        float average = sum / counter;
+        System.out.println("Average grade for " + subjectName + " in all university is - " + average);
     }
 
     private static List<Faculty> createFacultyList() {

@@ -3,12 +3,12 @@ package bean;
 import java.util.Map;
 
 public class Student {
-    String studentName;
-    Map<String, Integer> subjects;
+    private String name;
+    private Map<String, Integer> subjects;
 
     public Student(String studentName, Map<String, Integer> subjects) {
         validateSubjects(subjects);
-        this.studentName = studentName;
+        this.name = studentName;
         this.subjects = subjects;
     }
 
@@ -20,12 +20,12 @@ public class Student {
         }
     }
 
-    public String getStudentName() {
-        return studentName;
+    public String getName() {
+        return name;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Map<String, Integer> getSubjects() {
@@ -40,7 +40,7 @@ public class Student {
     @Override
     public String toString() {
         return "Students{" +
-                "studentName='" + studentName + '\'' +
+                "studentName='" + name + '\'' +
                 ", subject=" + subjects +
                 '}';
     }

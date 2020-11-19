@@ -3,20 +3,20 @@ package bean;
 import java.util.List;
 
 public class Faculty {
-    String facultyName;
-    List<Group> groups;
+    private String name;
+    private List<Group> groups;
 
     public Faculty(String facultyName, List<Group> groups) {
-        this.facultyName = facultyName;
+        this.name = facultyName;
         this.groups = groups;
     }
 
-    public String getFacultyName() {
-        return facultyName;
+    public String getName() {
+        return name;
     }
 
-    public void setFacultyName(String facultyName) {
-        this.facultyName = facultyName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Group> getGroups() {
@@ -30,7 +30,7 @@ public class Faculty {
     @Override
     public String toString() {
         return "Faculty{" +
-                "facultyName='" + facultyName + '\'' +
+                "facultyName='" + name + '\'' +
                 ", groups=" + groups +
                 '}';
     }
