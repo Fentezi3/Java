@@ -19,15 +19,18 @@ public class Main {
             System.out.println();
             calculateAverageGradeForOneSubjectInUniversity(facultyList, "Math");
         } catch (MyException e) {
-            e.getStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
     /**
      * Validation what this data is not null.
      *
-     * @param facultyList all faculty in university.
-     * @throws MyException parent class for all exceptions in this app.
+     * @param facultyList all faculties in university.
+     * @throws EmptyFacultyListException if faculty list is empty.
+     * @throws EmptyFacultyGroupsException if faculty doesn't have groups.
+     * @throws EmptyStudentListException if group doesn't have students.
+     * @throws EmptySubjectException if student doesn't have subjects.
      */
     private static void validateFacultyGroupStudentsSubjectIsEmpty(List<Faculty> facultyList) throws MyException {
         if (facultyList.isEmpty()) {
@@ -35,15 +38,15 @@ public class Main {
         }
         for (Faculty faculty : facultyList) {
             if (faculty.getGroups().isEmpty()) {
-                throw new EmptyFacultyGroupsException("There is no group in " + faculty.getName() + " faculty");
+                throw new EmptyFacultyGroupsException("There are no group in " + faculty.getName() + " faculty");
             }
             for (Group group : faculty.getGroups()) {
                 if (group.getStudentList().isEmpty()) {
-                    throw new EmptyStudentListException("There is no students in " + group.getName() + " group.");
+                    throw new EmptyStudentListException("There are no students in " + group.getName() + " group.");
                 }
                 for (Student students : group.getStudentList()) {
                     if (students.getSubjects().isEmpty()) {
-                        throw new EmptySubjectException("There is " + students.getName() + " no subjects");
+                        throw new EmptySubjectException(students.getName() + " has no subjects");
                     }
                 }
             }
@@ -53,7 +56,7 @@ public class Main {
     /**
      * Calculate average grade for each student for all subjects.
      *
-     * @param facultyList all faculty in university.
+     * @param facultyList all faculties in university.
      */
     private static void calculateAverageGradeForEachStudent(List<Faculty> facultyList) {
         List<Student> studentsList = new ArrayList();
@@ -170,13 +173,16 @@ public class Main {
         List<Group> humanityFacultyGroups = new ArrayList<Group>();
         humanityFacultyGroups.add(group2);
         humanityFacultyGroups.add(group3);
+        List<Group> historyFacultyGroups = new ArrayList<>();
 
         Faculty mathFaculty = new Faculty("Math", mathFacultyGroups);
         Faculty humanityFaculty = new Faculty("Humanity", humanityFacultyGroups);
+        Faculty historyFaculty = new Faculty("Historical", historyFacultyGroups);
 
         List<Faculty> facultyList = new ArrayList<Faculty>();
         facultyList.add(mathFaculty);
         facultyList.add(humanityFaculty);
+        facultyList.add(historyFaculty);
         return facultyList;
     }
 }
