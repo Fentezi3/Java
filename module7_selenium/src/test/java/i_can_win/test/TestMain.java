@@ -8,7 +8,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class WinMain {
+public class TestMain {
     public static final String ARROW_XPATH = "//div[@class='form-group field-postform-expiration']//span[@class='select2-selection__arrow']";
     public static final String TEN_MIN_OPT_XPATH = "//li[text()='10 Minutes']";
 
