@@ -10,20 +10,24 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<Faculty> facultyList = createFacultyList();
-        List<Faculty> emptyFacultyList = emptyFacultyList();
-        List<Faculty> facultyWithoutGroup = facultyWithoutGroup();
-        List<Faculty> groupWithoutStudents = groupWithoutStudents();
-        List<Faculty> studentWithoutSubjects = studentWithoutSubjects();
-        try {
-            validateFacultyGroupStudentsSubjectIsEmpty(studentWithoutSubjects);
-            calculateAverageGradeForEachStudent(studentWithoutSubjects);
-            System.out.println();
-            calculateAverageGradeInOneGroup(studentWithoutSubjects, "Math", 1, "English");
-            System.out.println();
-            calculateAverageGradeForOneSubjectInUniversity(studentWithoutSubjects, "Math");
-        } catch (MyException e) {
-            System.out.println(e.getMessage());
+        List<List> facultiesList = new ArrayList() {{
+            add(createFacultyList());
+            add(emptyFacultyList());
+            add(facultyWithoutGroup());
+            add(groupWithoutStudents());
+            add(studentWithoutSubjects());
+        }};
+        for (List faculty : facultiesList) {
+            try {
+                validateFacultyGroupStudentsSubjectIsEmpty(faculty);
+                calculateAverageGradeForEachStudent(faculty);
+                System.out.println();
+                calculateAverageGradeInOneGroup(faculty, "Math", 1, "English");
+                System.out.println();
+                calculateAverageGradeForOneSubjectInUniversity(faculty, "Math");
+            } catch (MyException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -31,10 +35,10 @@ public class Main {
      * Validation what this data is not null.
      *
      * @param facultyList all faculties in university.
-     * @throws EmptyFacultyListException if faculty list is empty.
+     * @throws EmptyFacultyListException   if faculty list is empty.
      * @throws EmptyFacultyGroupsException if faculty doesn't have groups.
-     * @throws EmptyStudentListException if group doesn't have students.
-     * @throws EmptySubjectException if student doesn't have subjects.
+     * @throws EmptyStudentListException   if group doesn't have students.
+     * @throws EmptySubjectException       if student doesn't have subjects.
      */
     private static void validateFacultyGroupStudentsSubjectIsEmpty(List<Faculty> facultyList) throws MyException {
         if (facultyList.isEmpty()) {
@@ -187,18 +191,21 @@ public class Main {
 
         return facultyList;
     }
-    private static List<Faculty> emptyFacultyList(){
+
+    private static List<Faculty> emptyFacultyList() {
         List<Faculty> emptyFacultyList = new ArrayList<>();
         return emptyFacultyList;
     }
-    private static List<Faculty> facultyWithoutGroup(){
+
+    private static List<Faculty> facultyWithoutGroup() {
         List<Group> historyFacultyGroups = new ArrayList<>();
         Faculty historyFaculty = new Faculty("Historical", historyFacultyGroups);
         List<Faculty> facultyWithoutGroup = new ArrayList<>();
         facultyWithoutGroup.add(historyFaculty);
         return facultyWithoutGroup;
     }
-    private static List<Faculty> groupWithoutStudents(){
+
+    private static List<Faculty> groupWithoutStudents() {
         List<Student> group1Students = new ArrayList<Student>();
         Group group1 = new Group(1, group1Students);
         List<Group> mathFacultyGroups = new ArrayList<Group>();
@@ -208,7 +215,8 @@ public class Main {
         groupWithoutStudents.add(mathFaculty);
         return groupWithoutStudents;
     }
-    private static List<Faculty> studentWithoutSubjects(){
+
+    private static List<Faculty> studentWithoutSubjects() {
         Map<String, Integer> subjects1 = new HashMap<String, Integer>();
         Student student1 = new Student("John", subjects1);
         List<Student> group1Students = new ArrayList<Student>();
