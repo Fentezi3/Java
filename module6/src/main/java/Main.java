@@ -1,5 +1,5 @@
-import bean.Calculations;
-import bean.DirectoriesScanning;
+import bean.CalculationService;
+import bean.DirectoriesScanner;
 import bean.FileReader;
 import writer.WriterWrapper;
 
@@ -13,7 +13,7 @@ public class Main {
         WriterWrapper writer = new WriterWrapper();
         try {
             writer.openWriter();
-            DirectoriesScanning.scanningFilesInDirectory(0, new File("d:/Rammstein"), writer);
+            DirectoriesScanner.createReportInFile(0, new File("d:/Rammstein"), writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,9 +29,9 @@ public class Main {
             e.printStackTrace();
         }
 
-        Calculations.calculateDirectories(stringList);
-        Calculations.calculateFiles(stringList);
-        Calculations.calculateAverageTitlesLength(stringList);
-        Calculations.calculateAverageFilesAmountInDirectory(stringList);
+        CalculationService.calculateDirectories(stringList);
+        CalculationService.calculateFiles(stringList);
+        CalculationService.calculateAverageTitlesLength(stringList);
+        CalculationService.calculateAverageFilesAmountInDirectory(stringList);
     }
 }

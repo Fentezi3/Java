@@ -7,20 +7,20 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class DirectoriesScanning {
+public class DirectoriesScanner {
     public final static String DIR_PREFIX = "|----";
     public final static String FILE_PREFIX = "|   ";
     private final static String DEFAULT_INDENTATION = "   ";
 
     /**
-     *This method scanning directory and writing results to file.
+     * This method scanning directory and writing results to file.
      *
-     * @param depth difference between directories levels.
-     * @param file path to directory
+     * @param depth  difference between directories levels.
+     * @param file   path to directory
      * @param writer WriterWrapper object
      * @throws IOException
      */
-    public static void scanningFilesInDirectory(int depth, File file, WriterWrapper writer) throws IOException {
+    public static void createReportInFile(int depth, File file, WriterWrapper writer) throws IOException {
         StringBuilder indentation = new StringBuilder();
         File[] files;
         for (int i = 0; i < depth; i++) {
@@ -35,10 +35,11 @@ public class DirectoriesScanning {
             files = file.listFiles();
             sortFileWrappers(Arrays.asList(files));
             for (File value : files) {
-                scanningFilesInDirectory(depth + 1, value, writer);
+                createReportInFile(depth + 1, value, writer);
             }
         }
     }
+
     private static void sortFileWrappers(List<File> childFiles) {
         childFiles.sort((file1, file2) -> {
             if ((file1.isFile() && file2.isFile())

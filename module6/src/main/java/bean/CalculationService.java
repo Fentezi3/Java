@@ -3,12 +3,13 @@ package bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import static bean.DirectoriesScanning.DIR_PREFIX;
-import static bean.DirectoriesScanning.FILE_PREFIX;
+import static bean.DirectoriesScanner.DIR_PREFIX;
+import static bean.DirectoriesScanner.FILE_PREFIX;
 
-public class Calculations {
+public class CalculationService {
     /**
-     * Calculate amout directories in string list.
+     * Calculate amount directories in string list.
+     *
      * @param stringList files and directories name.
      */
     public static void calculateDirectories(List<String> stringList) {
@@ -18,7 +19,7 @@ public class Calculations {
     }
 
     /**
-     * Calculate amount number files in file.
+     * Calculate amount files in string list.
      *
      * @param stringList files and directories name.
      */
@@ -29,7 +30,8 @@ public class Calculations {
     }
 
     /**
-     * Calculate average length in titles.
+     * Calculate average titles length
+     *
      * @param stringList files and directories name.
      */
     public static void calculateAverageTitlesLength(List<String> stringList) {
@@ -67,7 +69,7 @@ public class Calculations {
                 fileCounter++;
             }
         }
-        if (fileCounter > 0){
+        if (fileCounter > 0) {
             counters.add(fileCounter);
         }
         for (int counter : counters) {

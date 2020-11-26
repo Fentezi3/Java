@@ -21,10 +21,11 @@ public class WriterWrapper {
 
     /**
      * Write lines
+     *
      * @param string line, what need to write.
      * @throws IOException
      */
-    public void writeLine (String string) throws IOException {
+    public void writeLine(String string) throws IOException {
         writer.write(string);
     }
 
