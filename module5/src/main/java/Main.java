@@ -11,13 +11,17 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         List<Faculty> facultyList = createFacultyList();
+        List<Faculty> emptyFacultyList = emptyFacultyList();
+        List<Faculty> facultyWithoutGroup = facultyWithoutGroup();
+        List<Faculty> groupWithoutStudents = groupWithoutStudents();
+        List<Faculty> studentWithoutSubjects = studentWithoutSubjects();
         try {
-            validateFacultyGroupStudentsSubjectIsEmpty(facultyList);
-            calculateAverageGradeForEachStudent(facultyList);
+            validateFacultyGroupStudentsSubjectIsEmpty(studentWithoutSubjects);
+            calculateAverageGradeForEachStudent(studentWithoutSubjects);
             System.out.println();
-            calculateAverageGradeInOneGroup(facultyList, "Math", 1, "English");
+            calculateAverageGradeInOneGroup(studentWithoutSubjects, "Math", 1, "English");
             System.out.println();
-            calculateAverageGradeForOneSubjectInUniversity(facultyList, "Math");
+            calculateAverageGradeForOneSubjectInUniversity(studentWithoutSubjects, "Math");
         } catch (MyException e) {
             System.out.println(e.getMessage());
         }
@@ -173,16 +177,48 @@ public class Main {
         List<Group> humanityFacultyGroups = new ArrayList<Group>();
         humanityFacultyGroups.add(group2);
         humanityFacultyGroups.add(group3);
-        List<Group> historyFacultyGroups = new ArrayList<>();
 
         Faculty mathFaculty = new Faculty("Math", mathFacultyGroups);
         Faculty humanityFaculty = new Faculty("Humanity", humanityFacultyGroups);
-        Faculty historyFaculty = new Faculty("Historical", historyFacultyGroups);
 
         List<Faculty> facultyList = new ArrayList<Faculty>();
         facultyList.add(mathFaculty);
         facultyList.add(humanityFaculty);
-        facultyList.add(historyFaculty);
+
         return facultyList;
+    }
+    private static List<Faculty> emptyFacultyList(){
+        List<Faculty> emptyFacultyList = new ArrayList<>();
+        return emptyFacultyList;
+    }
+    private static List<Faculty> facultyWithoutGroup(){
+        List<Group> historyFacultyGroups = new ArrayList<>();
+        Faculty historyFaculty = new Faculty("Historical", historyFacultyGroups);
+        List<Faculty> facultyWithoutGroup = new ArrayList<>();
+        facultyWithoutGroup.add(historyFaculty);
+        return facultyWithoutGroup;
+    }
+    private static List<Faculty> groupWithoutStudents(){
+        List<Student> group1Students = new ArrayList<Student>();
+        Group group1 = new Group(1, group1Students);
+        List<Group> mathFacultyGroups = new ArrayList<Group>();
+        mathFacultyGroups.add(group1);
+        Faculty mathFaculty = new Faculty("Math", mathFacultyGroups);
+        List<Faculty> groupWithoutStudents = new ArrayList<>();
+        groupWithoutStudents.add(mathFaculty);
+        return groupWithoutStudents;
+    }
+    private static List<Faculty> studentWithoutSubjects(){
+        Map<String, Integer> subjects1 = new HashMap<String, Integer>();
+        Student student1 = new Student("John", subjects1);
+        List<Student> group1Students = new ArrayList<Student>();
+        group1Students.add(student1);
+        Group group1 = new Group(1, group1Students);
+        List<Group> mathFacultyGroups = new ArrayList<Group>();
+        mathFacultyGroups.add(group1);
+        Faculty mathFaculty = new Faculty("Math", mathFacultyGroups);
+        List<Faculty> studentWithoutSubjects = new ArrayList<>();
+        studentWithoutSubjects.add(mathFaculty);
+        return studentWithoutSubjects;
     }
 }
