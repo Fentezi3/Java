@@ -1,21 +1,18 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import page.PastebinResultPage;
 import page.PastebinStartPage;
+import wait.WaitMethod;
 
-import static page.PastebinResultPage.TITLE_SELECTOR;
+import static page.PastebinResultPage.*;
 import static page.PastebinStartPage.*;
 
 public class BringItOnTestMain {
     private WebDriver driver;
-
     @BeforeMethod(alwaysRun = true)
     public void browserSetup() {
         driver = new ChromeDriver();
@@ -30,8 +27,7 @@ public class BringItOnTestMain {
                 .checkExpiration()
                 .enterPasteName()
                 .createPasteFile();
-        new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(TITLE_SELECTOR)));
+        WaitMethod.createWaitWithXpath(driver,TITLE_SELECTOR);
         Assert.assertEquals(resultPage.getPageTitle(), PASTE_NAME);
     }
 
@@ -44,6 +40,7 @@ public class BringItOnTestMain {
                 .checkExpiration()
                 .enterPasteName()
                 .createPasteFile();
+        WaitMethod.createWaitWithXpath(driver, SYNTAX_SELECTOR);
         Assert.assertEquals(resultPage.getCodeSyntax(), BASH_SYNTAX_HIGHLIGHTING);
     }
 
@@ -56,6 +53,7 @@ public class BringItOnTestMain {
                 .checkExpiration()
                 .enterPasteName()
                 .createPasteFile();
+        WaitMethod.createWaitWithClassName(driver, CLASS_NAME_CODE);
         Assert.assertEquals(resultPage.getCodeFromPage(), CODE_TEXT);
     }
 

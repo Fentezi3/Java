@@ -4,8 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class PastebinResultPage {
-    private static final String SYNTAX_SELECTOR = "//*[text()='Bash']";
+    public static final String SYNTAX_SELECTOR = "//*[text()='Bash']";
     public static final String TITLE_SELECTOR = "//h1";
+    public static final String CLASS_NAME_CODE = "textarea";
     private WebDriver driver;
 
     public PastebinResultPage(WebDriver driver) {
@@ -36,6 +37,6 @@ public class PastebinResultPage {
      * @return String code.
      */
     public String getCodeFromPage() {
-        return driver.findElement(By.className("textarea")).getAttribute("value");
+        return driver.findElement(By.className(CLASS_NAME_CODE)).getAttribute("value");
     }
 }
