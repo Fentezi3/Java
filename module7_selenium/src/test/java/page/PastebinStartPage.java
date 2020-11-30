@@ -5,17 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class PastebinStartPage {
-    public static final String CODE_TEXT = "git config --global user.name New Sheriff in Town\n" +
-            "git reset $(git commit-tree HEAD^{tree} -m Legacy code)\n" +
-            "git push origin master --force";
-    public static final String BASH_SYNTAX_HIGHLIGHTING = "Bash";
-    public static final String PASTE_NAME = "how to gain dominance among developers";
-    public static final String ARROW_XPATH_FOR_SYNTAX_HIGHLIGHTING =
+    private static final String ARROW_XPATH_FOR_SYNTAX_HIGHLIGHTING =
             "//div[@class='form-group field-postform-format']//span[@class='select2-selection__arrow']";
-    public static final String ARROW_XPATH_FOR_EXPIRATION =
+    private static final String ARROW_XPATH_FOR_EXPIRATION =
             "//div[@class='form-group field-postform-expiration']//span[@class='select2-selection__arrow']";
-    public static final String TEN_MIN_OPT_XPATH = "//li[text()='10 Minutes']";
-    public static final String PASTE_NAME_ID = "postform-name";
+    private static final String TEN_MIN_OPT_XPATH = "//li[text()='10 Minutes']";
+    private static final String PASTE_NAME_ID = "postform-name";
     private static final String HOMEPAGE_URL = "https://pastebin.com";
     private static final String CREATE_BUTTON = "//button [text()='Create New Paste']";
     private static final String XPATH_SYNTAX_SEARCH = "//*[@type='search']";
@@ -33,18 +28,18 @@ public class PastebinStartPage {
         return this;
     }
 
-    public PastebinStartPage inputCode() {
+    public PastebinStartPage inputCode(String inputCode) {
         WebElement searchInput = driver.findElement(By.id(ID_INPUT_CODE));
-        searchInput.sendKeys(CODE_TEXT);
+        searchInput.sendKeys(inputCode);
         return this;
     }
 
-    public PastebinStartPage checkBashSyntax() {
+    public PastebinStartPage checkBashSyntax(String bashSyntax) {
         WebElement chooseSyntaxBox = driver.findElement(By.xpath(ARROW_XPATH_FOR_SYNTAX_HIGHLIGHTING));
         chooseSyntaxBox.click();
         WebElement enterSyntax = driver.findElement(By.xpath(XPATH_SYNTAX_SEARCH));
         enterSyntax.click();
-        enterSyntax.sendKeys(BASH_SYNTAX_HIGHLIGHTING);
+        enterSyntax.sendKeys(bashSyntax);
         WebElement chooseSyntax = driver.findElement(By.xpath(CHOOSE_BASH_SYNTAX));
         chooseSyntax.click();
         return this;
@@ -58,9 +53,9 @@ public class PastebinStartPage {
         return this;
     }
 
-    public PastebinStartPage enterPasteName() {
+    public PastebinStartPage enterPasteName(String pasteName) {
         WebElement pasteTitle = driver.findElement(By.id(PASTE_NAME_ID));
-        pasteTitle.sendKeys(PASTE_NAME);
+        pasteTitle.sendKeys(pasteName);
         return this;
     }
 

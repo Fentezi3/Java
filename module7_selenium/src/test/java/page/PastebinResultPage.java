@@ -2,11 +2,12 @@ package page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import wait.WaitMethod;
 
 public class PastebinResultPage {
-    public static final String SYNTAX_SELECTOR = "//*[text()='Bash']";
-    public static final String TITLE_SELECTOR = "//h1";
-    public static final String CLASS_NAME_CODE = "textarea";
+    private static final String SYNTAX_SELECTOR = "//*[text()='Bash']";
+    private static final String TITLE_SELECTOR = "//h1";
+    private static final String CLASS_NAME_CODE = "textarea";
     private WebDriver driver;
 
     public PastebinResultPage(WebDriver driver) {
@@ -19,6 +20,7 @@ public class PastebinResultPage {
      * @return String title.
      */
     public String getPageTitle() {
+        WaitMethod.createWaitWithXpath(driver,TITLE_SELECTOR);
         return driver.findElement(By.xpath(TITLE_SELECTOR)).getText();
     }
 
@@ -28,6 +30,7 @@ public class PastebinResultPage {
      * @return String code syntax.
      */
     public String getCodeSyntax() {
+        WaitMethod.createWaitWithXpath(driver, SYNTAX_SELECTOR);
         return driver.findElement(By.xpath(SYNTAX_SELECTOR)).getAttribute("innerText");
     }
 
@@ -37,6 +40,7 @@ public class PastebinResultPage {
      * @return String code.
      */
     public String getCodeFromPage() {
+        WaitMethod.createWaitWithClassName(driver, CLASS_NAME_CODE);
         return driver.findElement(By.className(CLASS_NAME_CODE)).getAttribute("value");
     }
 }
