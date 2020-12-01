@@ -1,15 +1,27 @@
 package page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
-public class PageWithSearchResult { //TODO
+import java.util.List;
+
+public class PageWithSearchResult extends AbstractPage{ //TODO
     private WebDriver driver;
-    public PageWithSearchResult(WebDriver driver) {
-        this.driver = driver;
+
+    @Override
+    protected AbstractPage openPage() {
+        return null;
     }
 
-    public GoogleCloudPlatformPricingCalculator findCalculatorSite() {
+    public PageWithSearchResult(WebDriver driver) {
+        super(driver);
+    }
 
-        return new GoogleCloudPlatformPricingCalculator(driver);
+    public PricingCalculator findCalculatorSite() {
+        List<WebElement> resultList = driver.findElements(By.xpath("//div[contains(@class,'gsc-webResult']"));
+        WebElement firstResult = resultList.get(0);
+        firstResult.click();
+        return new PricingCalculator(driver);
     }
 }

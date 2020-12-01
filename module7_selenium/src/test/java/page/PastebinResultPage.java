@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import wait.WaitMethod;
 
 public class PastebinResultPage {
-    private static final String SYNTAX_SELECTOR = "//*[text()='Bash']";
+    private static final String SYNTAX_SELECTOR = "//*[text()='%s']";
     private static final String TITLE_SELECTOR = "//h1";
     private static final String CLASS_NAME_CODE = "textarea";
     private WebDriver driver;
@@ -20,18 +20,20 @@ public class PastebinResultPage {
      * @return String title.
      */
     public String getPageTitle() {
-        WaitMethod.createWaitWithXpath(driver,TITLE_SELECTOR);
+        WaitMethod.createWaitWithXpath(driver, TITLE_SELECTOR);
         return driver.findElement(By.xpath(TITLE_SELECTOR)).getText();
     }
 
     /**
      * Find code syntax.
      *
+     * @param SyntaxHighlighting language for comparison.
      * @return String code syntax.
      */
-    public String getCodeSyntax() {
-        WaitMethod.createWaitWithXpath(driver, SYNTAX_SELECTOR);
-        return driver.findElement(By.xpath(SYNTAX_SELECTOR)).getAttribute("innerText");
+    public String getCodeSyntax(String SyntaxHighlighting) {
+        String syntaxFormat = String.format(SYNTAX_SELECTOR, SyntaxHighlighting);
+        WaitMethod.createWaitWithXpath(driver, syntaxFormat);
+        return driver.findElement(By.xpath(syntaxFormat)).getAttribute("innerText");
     }
 
     /**

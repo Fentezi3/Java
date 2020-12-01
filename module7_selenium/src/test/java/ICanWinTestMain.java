@@ -26,7 +26,7 @@ public class ICanWinTestMain {
                 .inputCode("git config --global user.name New Sheriff in Town\n" +
                         "git reset $(git commit-tree HEAD^{tree} -m Legacy code)\n" +
                         "git push origin master --force")
-                .checkExpiration()
+                .selectExpiration("10 Minutes")
                 .enterPasteName("how to gain dominance among developers")
                 .createPasteFile();
         driver.quit();
