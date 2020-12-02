@@ -8,9 +8,9 @@ import static bean.DirectoriesScanner.FILE_PREFIX;
 
 public class CalculationService {
     /**
-     * Calculate amount directories in string list.
+     * Calculate amount of directories in string list.
      *
-     * @param stringList files and directories name.
+     * @param stringList files and directories names.
      */
     public static void calculateDirectories(List<String> stringList) {
         int directories = (int) stringList.stream()
@@ -21,7 +21,7 @@ public class CalculationService {
     /**
      * Calculate amount files in string list.
      *
-     * @param stringList files and directories name.
+     * @param stringList files and directories names.
      */
     public static void calculateFiles(List<String> stringList) {
         int files = (int) stringList.stream()
@@ -32,33 +32,32 @@ public class CalculationService {
     /**
      * Calculate average titles length
      *
-     * @param stringList files and directories name.
+     * @param stringList files and directories names.
      */
     public static void calculateAverageTitlesLength(List<String> stringList) {
-        List<Integer> list = new ArrayList<>();
+        List<Integer> titleList = new ArrayList<>();
         float sum = 0;
         float average;
         for (String string : stringList) {
             if (string.contains(FILE_PREFIX)) {
-                Integer length = string.length() - FILE_PREFIX.length();
-                list.add(length);
+                Integer length = string.trim().length() - FILE_PREFIX.length();
+                titleList.add(length);
             }
         }
-        for (int length : list) {
+        for (int length : titleList) {
             sum += length;
         }
-        average = sum / list.size();
+        average = sum / titleList.size();
         System.out.println("Average file name length: " + average);
     }
 
     /**
      * Calculate average amount files in directory.
      *
-     * @param stringList files and directories name.
+     * @param stringList files and directories names.
      */
-    public static void calculateAverageFilesAmountInDirectory(List<String> stringList) {
+    public static void fileCounters(List<String> stringList) {
         List<Integer> counters = new ArrayList<>();
-        float sum = 0;
         int fileCounter = 0;
         for (String line : stringList) {
             if (line.contains(DIR_PREFIX)) {
@@ -72,13 +71,11 @@ public class CalculationService {
         if (fileCounter > 0) {
             counters.add(fileCounter);
         }
-        for (int counter : counters) {
-            sum += counter;
-        }
-        long withoutNull = counters.stream().
+        int sumFiles = counters.stream().mapToInt(Integer::valueOf).sum();
+        long withoutEmptyList = counters.stream().
                 filter(integer -> integer > 0).count();
-        float average = sum / withoutNull;
+        float average = (float) sumFiles / withoutEmptyList;
         System.out.println("Average files in directory: " + average);
-        System.out.println("Directions: " + withoutNull);
+        System.out.println("Directions: " + withoutEmptyList);
     }
 }

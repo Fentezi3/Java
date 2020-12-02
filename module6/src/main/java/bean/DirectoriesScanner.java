@@ -1,6 +1,6 @@
 package bean;
 
-import writer.WriterWrapper;
+import writer.ReportWriter;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,10 +17,10 @@ public class DirectoriesScanner {
      *
      * @param depth  difference between directories levels.
      * @param file   path to directory
-     * @param writer WriterWrapper object
+     * @param writer ReportWriter object
      * @throws IOException
      */
-    public static void createReportInFile(int depth, File file, WriterWrapper writer) throws IOException {
+    public static void createReportInFile(int depth, File file, ReportWriter writer) throws IOException {
         StringBuilder indentation = new StringBuilder();
         File[] files;
         for (int i = 0; i < depth; i++) {
@@ -33,14 +33,14 @@ public class DirectoriesScanner {
         }
         if (file.isDirectory()) {
             files = file.listFiles();
-            sortFileWrappers(Arrays.asList(files));
+            sortFiles(Arrays.asList(files));
             for (File value : files) {
                 createReportInFile(depth + 1, value, writer);
             }
         }
     }
 
-    private static void sortFileWrappers(List<File> childFiles) {
+    private static void sortFiles(List<File> childFiles) {
         childFiles.sort((file1, file2) -> {
             if ((file1.isFile() && file2.isFile())
                     || (file1.isDirectory() && file2.isDirectory())) {

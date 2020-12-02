@@ -1,37 +1,44 @@
 import bean.CalculationService;
 import bean.DirectoriesScanner;
-import bean.FileReader;
-import writer.WriterWrapper;
+import bean.ReportReader;
+import writer.ReportWriter;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 public class Main {
-
     public static void main(String[] args) {
-        WriterWrapper writer = new WriterWrapper();
+        List<String> stringList;
         try {
-            writer.openWriter();
-            DirectoriesScanner.createReportInFile(0, new File("d:/Rammstein"), writer);
+            for (String argument : args) { //change for to element[0]
+                if (argument.endsWith(".txt")) {  //method
+                    stringList = ReportReader.readFromFile(argument);
+                    Calculate(stringList);
+                } else {
+                    ReportWriter writer = new ReportWriter(); //19-21 - one method
+                    print(writer, argument);
+                    writer.closeWrapper();
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        List<String> stringList = null;
-        try {
-            stringList = FileReader.readFromFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            writer.closeWrapper();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    }
 
+    public static void Calculate(List<String> stringList) {
         CalculationService.calculateDirectories(stringList);
         CalculationService.calculateFiles(stringList);
         CalculationService.calculateAverageTitlesLength(stringList);
-        CalculationService.calculateAverageFilesAmountInDirectory(stringList);
+        CalculationService.fileCounters(stringList);
+    }
+
+    public static void print(ReportWriter writer, String argument) {
+        try {
+            writer.openWriter();
+            DirectoriesScanner.createReportInFile(0, new File(argument), writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

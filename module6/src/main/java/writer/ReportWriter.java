@@ -4,12 +4,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
-public class WriterWrapper {
-    private final static String OUTPUT_FILE = "src/main/resources/outputRammTree.txt";
+public class ReportWriter {
+    private final static String OUTPUT_FILE = "src/main/resources/output.txt";
     private Writer writer;
 
     /**
-     * Open WriterWrapper
+     * Open ReportWriter
      *
      * @throws IOException
      */
