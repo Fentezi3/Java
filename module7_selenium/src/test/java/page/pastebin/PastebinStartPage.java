@@ -1,4 +1,4 @@
-package page;
+package page.pastebin;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,17 +6,17 @@ import org.openqa.selenium.WebElement;
 
 public class PastebinStartPage {
     private static final String HOMEPAGE_URL = "https://pastebin.com";
-    private static final String ARROW_XPATH_FOR_SYNTAX_HIGHLIGHTING =
+    private static final String INPUT_CODE_ID = "postform-text";
+    private static final String SYNTAX_HIGHLIGHTING_ARROW_XPATH =
             "//div[@class='form-group field-postform-format']//span[@class='select2-selection__arrow']";
-    private static final String ARROW_XPATH_FOR_EXPIRATION =
+    private static final String SYNTAX_SEARCH_XPATH = "//*[@type='search']";
+    private static final String EXPIRATION_ARROW_XPATH =
             "//div[@class='form-group field-postform-expiration']//span[@class='select2-selection__arrow']";
-    private static final String ID_INPUT_CODE = "postform-text";
-    private static final String XPATH_SYNTAX_SEARCH = "//*[@type='search']";
-    private static final String CHOOSE_ENTERED_SYNTAX =
+    private static final String ENTERED_SYNTAX_XPATH =
             "//*[@id='select2-postform-format-results']";
+    private static final String EXPIRATION_REFERENCE = "//li[text()='%s']";
     private static final String PASTE_NAME_ID = "postform-name";
-    private static final String CREATE_BUTTON = "//button [text()='Create New Paste']";
-    private static final String EXPIRATION = "//li[text()='%s']";
+    private static final String CREATE_BUTTON_XPATH = "//button [text()='Create New Paste']";
     private WebDriver driver;
 
     public PastebinStartPage(WebDriver driver) {
@@ -29,25 +29,25 @@ public class PastebinStartPage {
     }
 
     public PastebinStartPage inputCode(String inputCode) {
-        WebElement searchInput = driver.findElement(By.id(ID_INPUT_CODE));
+        WebElement searchInput = driver.findElement(By.id(INPUT_CODE_ID));
         searchInput.sendKeys(inputCode);
         return this;
     }
 
     public PastebinStartPage selectSyntaxHighlighting(String bashSyntax) {
-        WebElement chooseSyntaxBox = driver.findElement(By.xpath(ARROW_XPATH_FOR_SYNTAX_HIGHLIGHTING));
+        WebElement chooseSyntaxBox = driver.findElement(By.xpath(SYNTAX_HIGHLIGHTING_ARROW_XPATH));
         chooseSyntaxBox.click();
-        WebElement enterSyntax = driver.findElement(By.xpath(XPATH_SYNTAX_SEARCH));
+        WebElement enterSyntax = driver.findElement(By.xpath(SYNTAX_SEARCH_XPATH));
         enterSyntax.click();
         enterSyntax.sendKeys(bashSyntax);
-        WebElement chooseSyntax = driver.findElement(By.xpath(CHOOSE_ENTERED_SYNTAX));
+        WebElement chooseSyntax = driver.findElement(By.xpath(ENTERED_SYNTAX_XPATH));
         chooseSyntax.click();
         return this;
     }
 
     public PastebinStartPage selectExpiration(String expiration) {
-        String option = String.format(EXPIRATION, expiration);
-        WebElement chooseExpiration = driver.findElement(By.xpath(ARROW_XPATH_FOR_EXPIRATION));
+        String option = String.format(EXPIRATION_REFERENCE, expiration);
+        WebElement chooseExpiration = driver.findElement(By.xpath(EXPIRATION_ARROW_XPATH));
         chooseExpiration.click();
         WebElement tenMinOption = driver.findElement(By.xpath(option));
         tenMinOption.click();
@@ -61,7 +61,7 @@ public class PastebinStartPage {
     }
 
     public PastebinResultPage createPasteFile() {
-        WebElement createPaste = driver.findElement(By.xpath(CREATE_BUTTON));
+        WebElement createPaste = driver.findElement(By.xpath(CREATE_BUTTON_XPATH));
         createPaste.click();
         return new PastebinResultPage(driver);
     }

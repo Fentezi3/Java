@@ -1,13 +1,13 @@
-package page;
+package page.calculator;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import page.AbstractPage;
 
-import java.util.List;
-
-public class PageWithSearchResult extends AbstractPage{ //TODO
-    private WebDriver driver;
+public class PageWithSearchResult extends AbstractPage {
+    private static final String XPATH = "//div[@class='gsc-thumbnail-inside']" +
+            "//a[@class='gs-title']//b[text()='Google Cloud Platform Pricing Calculator']";
 
     @Override
     protected AbstractPage openPage() {
@@ -19,9 +19,8 @@ public class PageWithSearchResult extends AbstractPage{ //TODO
     }
 
     public PricingCalculator findCalculatorSite() {
-        List<WebElement> resultList = driver.findElements(By.xpath("//div[contains(@class,'gsc-webResult']"));
-        WebElement firstResult = resultList.get(0);
-        firstResult.click();
+        WebElement result = driver.findElement(By.xpath(XPATH));
+        result.click();
         return new PricingCalculator(driver);
     }
 }

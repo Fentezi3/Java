@@ -8,20 +8,22 @@ import org.testng.annotations.BeforeMethod;
 import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractTest {
-    public WebDriver driver;
+    protected WebDriver driver;
+
     @BeforeClass
-    public static void setupChrome(){
+    protected static void setupChrome() {
         WebDriverManager.chromedriver().setup();
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void browserSetup() {
+    protected void browserSetup() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
     }
 
     @AfterMethod(alwaysRun = true)
-    public void driverClose() {
+    protected void driverClose() {
         driver.quit();
         driver = null;
     }
