@@ -8,7 +8,7 @@ import page.pastebin.PastebinStartPage;
 
 import java.util.concurrent.TimeUnit;
 
-public class ICanWinTestMain {
+public class ICanWinTest {
     private WebDriver driver;
 
     @BeforeClass

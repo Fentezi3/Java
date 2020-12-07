@@ -2,7 +2,7 @@ package page.pastebin;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import wait.WaitMethod;
+import wait.WaitService;
 
 public class PastebinResultPage {
     private static final String SYNTAX_SELECTOR = "//*[text()='%s']";
@@ -20,7 +20,7 @@ public class PastebinResultPage {
      * @return String title.
      */
     public String getPageTitle() {
-        WaitMethod.createWaitWithXpath(driver, TITLE_SELECTOR);
+        WaitService.waitForPresenceOfElementByXpath(driver, TITLE_SELECTOR);
         return driver.findElement(By.xpath(TITLE_SELECTOR)).getText();
     }
 
@@ -32,7 +32,7 @@ public class PastebinResultPage {
      */
     public String getCodeSyntax(String SyntaxHighlighting) {
         String syntaxFormat = String.format(SYNTAX_SELECTOR, SyntaxHighlighting);
-        WaitMethod.createWaitWithXpath(driver, syntaxFormat);
+        WaitService.waitForPresenceOfElementByXpath(driver, syntaxFormat);
         return driver.findElement(By.xpath(syntaxFormat)).getAttribute("innerText");
     }
 
@@ -42,7 +42,7 @@ public class PastebinResultPage {
      * @return String code.
      */
     public String getCodeFromPage() {
-        WaitMethod.createWaitWithClassName(driver, CLASS_NAME_CODE);
+        WaitService.waitForPresenceOfElementByClassName(driver, CLASS_NAME_CODE);
         return driver.findElement(By.className(CLASS_NAME_CODE)).getAttribute("value");
     }
 }

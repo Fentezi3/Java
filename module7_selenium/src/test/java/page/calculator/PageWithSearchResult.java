@@ -18,7 +18,7 @@ public class PageWithSearchResult extends AbstractPage {
         super(driver);
     }
 
-    public PricingCalculator findCalculatorSite() {
+    public PricingCalculator selectCalculatorSite() {
         WebElement result = driver.findElement(By.xpath(XPATH));
         result.click();
         return new PricingCalculator(driver);
