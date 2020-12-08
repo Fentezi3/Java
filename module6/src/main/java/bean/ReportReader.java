@@ -10,11 +10,11 @@ public class ReportReader {
     /**
      * Read each string from output file.
      *
-     * @param argument path to file.
+     * @param path path to file.
      * @return List with strings from file.
      * @throws IOException
      */
-    public static List<String> readFromFile(String argument) throws IOException {
-        return Files.lines(Paths.get(argument)).collect(Collectors.toList());
+    public static List<String> readFromFile(String path) throws IOException {
+        return Files.lines(Paths.get(path)).collect(Collectors.toList());
     }
 }
