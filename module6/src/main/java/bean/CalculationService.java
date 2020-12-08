@@ -40,7 +40,7 @@ public class CalculationService {
         float average;
         for (String string : stringList) {
             if (string.contains(FILE_PREFIX)) {
-                Integer length = string.trim().length() - FILE_PREFIX.length();
+                int length = string.trim().length() - FILE_PREFIX.length();
                 titleList.add(length);
             }
         }
@@ -56,12 +56,12 @@ public class CalculationService {
      *
      * @param stringList files and directories names.
      */
-    public static void fileCounters(List<String> stringList) {
-        List<Integer> counters = new ArrayList<>();
+    public static void calculateAverageFilesAmountInDirectory(List<String> stringList) {
+        List<Integer> fileCounters = new ArrayList<>();
         int fileCounter = 0;
         for (String line : stringList) {
             if (line.contains(DIR_PREFIX)) {
-                counters.add(fileCounter);
+                fileCounters.add(fileCounter);
                 fileCounter = 0;
             }
             if (line.contains(FILE_PREFIX)) {
@@ -69,10 +69,10 @@ public class CalculationService {
             }
         }
         if (fileCounter > 0) {
-            counters.add(fileCounter);
+            fileCounters.add(fileCounter);
         }
-        int sumFiles = counters.stream().mapToInt(Integer::valueOf).sum();
-        long withoutEmptyList = counters.stream().
+        int sumFiles = fileCounters.stream().mapToInt(Integer::valueOf).sum();
+        long withoutEmptyList = fileCounters.stream().
                 filter(integer -> integer > 0).count();
         float average = (float) sumFiles / withoutEmptyList;
         System.out.println("Average files in directory: " + average);

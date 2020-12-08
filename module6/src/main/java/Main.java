@@ -9,19 +9,18 @@ import java.util.List;
 
 public class Main {
     /**
-     * Create .txt file with direction tree from direction path, or read information from file
-     * and calculate number files and directories {@link CalculationService} in this file
+     * Create .txt file with directories tree from directory path, or read information from file
+     * and calculate number of files and directories {@link CalculationService} in this file
      *
      * @param args can contains path to .txt file {@link ReportReader#readFromFile(String)}
-     *             or to directory {@link Main#print(ReportWriter, String)} (String)}
+     *             or to directory {@link Main#readFilesAndWriteDirectoryTree(String)} (String)}
      */
     public static void main(String[] args) {
-        List<String> stringList;
         String path = args[0];
         if (isArgumentAFile(path)) {
             try {
-                stringList = ReportReader.readFromFile(path);
-                Calculate(stringList);
+                List<String> stringList = ReportReader.readFromFile(path);
+                allCalculationOnFile(stringList);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -31,43 +30,29 @@ public class Main {
     }
 
     private static boolean isArgumentAFile(String path) {
-        boolean bool = false;
-        if (path.endsWith(".txt")) {
-            bool = true;
-        }
-
-        return bool;
+        return path.endsWith(".txt");
     }
 
-    private static void readFilesAndWriteDirectoryTree(String path) {
+    /**
+     * Read file from directory and write directories tree in output file
+     *
+     * @param path path to directory for reading
+     */
+    public static void readFilesAndWriteDirectoryTree(String path) {
         ReportWriter writer = new ReportWriter();
-        print(writer, path);
         try {
+            writer.openWriter();
+            DirectoriesScanner.createReportInFile(0, new File(path), writer);
             writer.closeWrapper();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void Calculate(List<String> stringList) {
+    public static void allCalculationOnFile(List<String> stringList) {
         CalculationService.calculateDirectories(stringList);
         CalculationService.calculateFiles(stringList);
         CalculationService.calculateAverageTitlesLength(stringList);
-        CalculationService.fileCounters(stringList);
-    }
-
-    /**
-     * Read file from directory and write directories tree in output file
-     *
-     * @param writer object ReportWriter class for writing directories tree
-     * @param path   path to directory for reading
-     */
-    public static void print(ReportWriter writer, String path) {
-        try {
-            writer.openWriter();
-            DirectoriesScanner.createReportInFile(0, new File(path), writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        CalculationService.calculateAverageFilesAmountInDirectory(stringList);
     }
 }
