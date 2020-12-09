@@ -3,8 +3,9 @@ package page.pastebin;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import page.AbstractPage;
 
-public class PastebinStartPage {
+public class PastebinStartPage extends AbstractPage {
     private static final String HOMEPAGE_URL = "https://pastebin.com";
     private static final String INPUT_CODE_ID = "postform-text";
     private static final String SYNTAX_HIGHLIGHTING_ARROW_XPATH =
@@ -17,10 +18,9 @@ public class PastebinStartPage {
     private static final String EXPIRATION_REFERENCE = "//li[text()='%s']";
     private static final String PASTE_NAME_ID = "postform-name";
     private static final String CREATE_BUTTON_XPATH = "//button [text()='Create New Paste']";
-    private WebDriver driver;
 
     public PastebinStartPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public PastebinStartPage openPage() {
@@ -46,10 +46,9 @@ public class PastebinStartPage {
     }
 
     public PastebinStartPage selectExpiration(String expiration) {
-        String option = String.format(EXPIRATION_REFERENCE, expiration);
         WebElement chooseExpiration = driver.findElement(By.xpath(EXPIRATION_ARROW_XPATH));
         chooseExpiration.click();
-        WebElement tenMinOption = driver.findElement(By.xpath(option));
+        WebElement tenMinOption = driver.findElement(By.xpath(String.format(EXPIRATION_REFERENCE, expiration)));
         tenMinOption.click();
         return this;
     }

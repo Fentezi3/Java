@@ -1,26 +1,7 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import page.pastebin.PastebinStartPage;
 
-import java.util.concurrent.TimeUnit;
-
-public class ICanWinTest {
-    private WebDriver driver;
-
-    @BeforeClass
-    public static void setupChrome() {
-        WebDriverManager.chromedriver().setup();
-    }
-
-    @BeforeMethod(alwaysRun = true)
-    public void browserSetup() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    }
+public class ICanWinTest extends AbstractTest {
 
     @Test
     public void createPageWithText() {

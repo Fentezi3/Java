@@ -2,11 +2,16 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import page.calculator.GoogleCloudStartPage;
+import page.calculator.PricingCalculatorPage;
 import page.calculator.PricingResultPage;
+import page.calculator.SearchResultPage;
 
 import static page.calculator.PricingResultPage.FieldName.*;
 
 public class HurtMePlentyTest extends AbstractTest {
+    private static final String GOOGLE_CLOUD_URL = "https://cloud.google.com/ ";
+    private static final String SEARCH_QUERY = "Google Cloud Platform Pricing Calculator";
+
     @DataProvider(name = "data-provider")
     public Object[][] dataProviderMethod() {
         return new Object[][]{
@@ -14,7 +19,7 @@ public class HurtMePlentyTest extends AbstractTest {
                 {INSTANCE_TYPE, INSTANCE_TYPE.getName() + "n1-standard-8"},
                 {REGION, REGION.getName() + "Taiwan"},
                 {LOCAL_SSD, LOCAL_SSD.getName() + "2x375 GiB"},
-                {COMMITMENT_TERM, COMMITMENT_TERM.getName() + "1 Year"},
+                {COMMITMENT_TERM, COMMITMENT_TERM.getName() + "1 Year"}
         };
     }
 
@@ -31,10 +36,13 @@ public class HurtMePlentyTest extends AbstractTest {
     }
 
     private PricingResultPage createResultPage() {
-        return new GoogleCloudStartPage(driver)
-                .openPage()
-                .findInfoOnTheSite()
-                .selectCalculatorSite()
+        GoogleCloudStartPage googleCloudStartPage = new GoogleCloudStartPage(driver);
+        SearchResultPage searchResultPage = googleCloudStartPage
+                .openPage(GOOGLE_CLOUD_URL)
+                .searchFor(SEARCH_QUERY);
+        PricingCalculatorPage calculatorPage = searchResultPage
+                .selectCalculatorSite();
+        return calculatorPage
                 .selectCalculatorType("Compute Engine")
                 .selectNumberOfInstance("4")
                 .selectOperatingSystem("Free: Debian, CentOS, CoreOS, Ubuntu, or other User Provided OS")
