@@ -2,11 +2,12 @@ package page.calculator;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import page.AbstractPage;
+import org.openqa.selenium.WebElement;
 
-public class PricingResultPage extends AbstractPage {
+public class PricingResultBlock extends AbstractGooglePage {
     private static final String FIELD_XPATH = XPATH_PATTERN;
     private static final String COST_XPATH = "//h2[@class='md-title']//b";
+    private static final String EMAIL_ESTIMATE_BUTTON_XPATH = "//button[@aria-label='Email Estimate']";
 
     public enum FieldName {
         VM_CLASS("VM class: "),
@@ -27,7 +28,7 @@ public class PricingResultPage extends AbstractPage {
         }
     }
 
-    public PricingResultPage(WebDriver driver) {
+    public PricingResultBlock(WebDriver driver) {
         super(driver);
     }
 
@@ -37,5 +38,11 @@ public class PricingResultPage extends AbstractPage {
 
     public String getCostFieldValue() {
         return driver.findElement(By.xpath(COST_XPATH)).getText();
+    }
+
+    public SendEmailBlock selectEmailEstimate() {
+        WebElement emailEstimateButton = driver.findElement(By.xpath(EMAIL_ESTIMATE_BUTTON_XPATH));
+        emailEstimateButton.click();
+        return new SendEmailBlock(driver);
     }
 }

@@ -3,14 +3,11 @@ package page.calculator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import page.AbstractPage;
 import wait.WaitService;
 
-public class PricingCalculatorPage extends AbstractPage {
+public class PricingCalculatorBlock extends AbstractGooglePage {
     private static final String CALCULATOR_TYPE = "//md-pagination-wrapper//md-tab-item[@aria-controls='tab-content-1']"
             + "//div[@class='tab-holder compute'][@title='%s']";
-    private static final String I_FRAME_XPATH = "//article[@id='cloud-site']//devsite-iframe//iframe";
-    private static final String MY_FRAME_XPATH = "//iframe[@id='myFrame']";
     private static final String INSTANCES_FIELD_ID = "input_62";
     private static final String OPERATING_SYSTEM_FIELD_ID = "select_value_label_55";
     private static final String OPERATING_SYSTEM_XPATH_PATTERN = "//md-option" + XPATH_PATTERN;
@@ -35,11 +32,11 @@ public class PricingCalculatorPage extends AbstractPage {
     private static final String ADD_TO_ESTIMATE_XPATH = "//div[@ng-if='listingCtrl.showComputeEngine']" +
             "//button[@class='md-raised md-primary cpc-button md-button md-ink-ripple']";
 
-    public PricingCalculatorPage(WebDriver driver) {
+    public PricingCalculatorBlock(WebDriver driver) {
         super(driver);
     }
 
-    public PricingCalculatorPage selectCalculatorType(String inputCalculatorType) {
+    public PricingCalculatorBlock selectCalculatorType(String inputCalculatorType) {
         switchToFrame();
         String calculatorTypeXpath = String
                 .format(CALCULATOR_TYPE, inputCalculatorType);
@@ -50,21 +47,14 @@ public class PricingCalculatorPage extends AbstractPage {
         return this;
     }
 
-    private void switchToFrame() {
-        WebElement iFrame = driver.findElement(By.xpath(I_FRAME_XPATH));
-        driver.switchTo().frame(iFrame);
-        WebElement myFrame = driver.findElement(By.xpath(MY_FRAME_XPATH));
-        driver.switchTo().frame(myFrame);
-    }
-
-    public PricingCalculatorPage selectNumberOfInstance(String inputNumber) {
+    public PricingCalculatorBlock selectNumberOfInstance(String inputNumber) {
         WebElement numberOfInstanceField = driver.findElement(By.id(INSTANCES_FIELD_ID));
         numberOfInstanceField.click();
         numberOfInstanceField.sendKeys(inputNumber);
         return this;
     }
 
-    public PricingCalculatorPage selectOperatingSystem(String inputOperatingSystem) {
+    public PricingCalculatorBlock selectOperatingSystem(String inputOperatingSystem) {
         WebElement operatingSystemField = driver.findElement(By.id(OPERATING_SYSTEM_FIELD_ID));
         operatingSystemField.click();
         WebElement operatingSystem = driver.findElement(By.xpath(String
@@ -73,7 +63,7 @@ public class PricingCalculatorPage extends AbstractPage {
         return this;
     }
 
-    public PricingCalculatorPage selectMachineClass(String inputMachineClass) {
+    public PricingCalculatorBlock selectMachineClass(String inputMachineClass) {
         WebElement machineClassField = driver.findElement(By.id(MACHINE_CLASS_FIELD_ID));
         machineClassField.click();
         WebElement machineClass = driver.findElement(By.xpath(String
@@ -82,7 +72,7 @@ public class PricingCalculatorPage extends AbstractPage {
         return this;
     }
 
-    public PricingCalculatorPage selectMachineSeries(String inputMachineSeries) {
+    public PricingCalculatorBlock selectMachineSeries(String inputMachineSeries) {
         WebElement machineSeriesField = driver.findElement(By.id(MACHINE_SERIES_FIELD_ID));
         machineSeriesField.click();
         String machineSeriesXpath = String.format(MACHINE_SERIES_XPATH, inputMachineSeries);
@@ -92,7 +82,7 @@ public class PricingCalculatorPage extends AbstractPage {
         return this;
     }
 
-    public PricingCalculatorPage selectMachineType(String inputMachineType) {
+    public PricingCalculatorBlock selectMachineType(String inputMachineType) {
         WebElement machineTypeField = driver.findElement(By.id(MACHINE_TYPE_FIELD_ID));
         machineTypeField.click();
         String machineTypeXpath = String.format(MACHINE_TYPE_XPATH, inputMachineType);
@@ -102,14 +92,14 @@ public class PricingCalculatorPage extends AbstractPage {
         return this;
     }
 
-    public PricingCalculatorPage clickInGPUsCheckBox() {
+    public PricingCalculatorBlock clickInGPUsCheckBox() {
         WebElement checkBoxGPUs = driver.findElement(By
                 .xpath(GPU_CHECKBOX_XPATH));
         checkBoxGPUs.click();
         return this;
     }
 
-    public PricingCalculatorPage enterNumberOfGPUs(String inputGPUNumber) {
+    public PricingCalculatorBlock enterNumberOfGPUs(String inputGPUNumber) {
         WebElement numberOfGPUField = driver.findElement(By.id(NUMBER_OF_GPU_FIELD_ID));
         numberOfGPUField.click();
         String numberOfGpuXpath = String.format(NUMBER_OF_GPU_XPATH, inputGPUNumber);
@@ -119,7 +109,7 @@ public class PricingCalculatorPage extends AbstractPage {
         return this;
     }
 
-    public PricingCalculatorPage selectGPUType(String inputGPUType) {
+    public PricingCalculatorBlock selectGPUType(String inputGPUType) {
         WebElement gpuTypeField = driver.findElement(By.id(GPU_TYPE_FIELD_ID));
         gpuTypeField.click();
         String gpuTypeXpath = String.format(GPU_TYPE_XPATH, inputGPUType);
@@ -129,7 +119,7 @@ public class PricingCalculatorPage extends AbstractPage {
         return this;
     }
 
-    public PricingCalculatorPage selectLocalSSD(String inputLocalSSD) {
+    public PricingCalculatorBlock selectLocalSSD(String inputLocalSSD) {
         WebElement localSSDField = driver.findElement(By.id(LOCAL_SSD_FIELD_ID));
         localSSDField.click();
         String localSSDXpath = String.format(LOCAL_SSD_XPATH, inputLocalSSD);
@@ -139,7 +129,7 @@ public class PricingCalculatorPage extends AbstractPage {
         return this;
     }
 
-    public PricingCalculatorPage selectDataCenter(String inputDataCenterLocation) {
+    public PricingCalculatorBlock selectDataCenter(String inputDataCenterLocation) {
         WebElement dataCenterLocationField = driver.findElement(By.id(DATACENTER_LOCATION_FIELD_ID));
         dataCenterLocationField.click();
         String locationXpath = String.format(DATACENTER_LOCATION_XPATH, inputDataCenterLocation);
@@ -149,7 +139,7 @@ public class PricingCalculatorPage extends AbstractPage {
         return this;
     }
 
-    public PricingCalculatorPage selectCommittedUsage(String inputUsage) {
+    public PricingCalculatorBlock selectCommittedUsage(String inputUsage) {
         WebElement committedUsageField = driver.findElement(By.id(COMMITTED_USAGE_FIELD_ID));
         committedUsageField.click();
         String committedUsageXpath = String.format(COMMITTED_USAGE_XPATH, inputUsage);
@@ -159,10 +149,10 @@ public class PricingCalculatorPage extends AbstractPage {
         return this;
     }
 
-    public PricingResultPage clickForAddedToEstimate() {
+    public PricingResultBlock clickForAddedToEstimate() {
         WebElement addToEstimate = driver.findElement(By
                 .xpath(ADD_TO_ESTIMATE_XPATH));
         addToEstimate.click();
-        return new PricingResultPage(driver);
+        return new PricingResultBlock(driver);
     }
 }

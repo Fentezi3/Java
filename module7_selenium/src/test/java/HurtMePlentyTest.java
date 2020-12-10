@@ -2,11 +2,11 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import page.calculator.GoogleCloudStartPage;
-import page.calculator.PricingCalculatorPage;
-import page.calculator.PricingResultPage;
+import page.calculator.PricingCalculatorBlock;
+import page.calculator.PricingResultBlock;
 import page.calculator.SearchResultPage;
 
-import static page.calculator.PricingResultPage.FieldName.*;
+import static page.calculator.PricingResultBlock.FieldName.*;
 
 public class HurtMePlentyTest extends AbstractTest {
     private static final String GOOGLE_CLOUD_URL = "https://cloud.google.com/ ";
@@ -24,23 +24,23 @@ public class HurtMePlentyTest extends AbstractTest {
     }
 
     @Test(dataProvider = "data-provider")
-    public void testEqualsItemField(PricingResultPage.FieldName fieldName, String itemFieldText) {
-        PricingResultPage resultPage = createResultPage();
+    public void testEqualsItemField(PricingResultBlock.FieldName fieldName, String itemFieldText) {
+        PricingResultBlock resultPage = createResultPage();
         Assert.assertEquals(resultPage.getItemFieldValue(fieldName.getName()), itemFieldText);
     }
 
     @Test
     public void testEqualsTotalEstimatedCost() {
-        PricingResultPage resultPage = createResultPage();
+        PricingResultBlock resultPage = createResultPage();
         Assert.assertEquals(resultPage.getCostFieldValue(), COST.getName() + "USD 5,523.47 per 1 month");
     }
 
-    private PricingResultPage createResultPage() {
+    private PricingResultBlock createResultPage() {
         GoogleCloudStartPage googleCloudStartPage = new GoogleCloudStartPage(driver);
         SearchResultPage searchResultPage = googleCloudStartPage
                 .openPage(GOOGLE_CLOUD_URL)
                 .searchFor(SEARCH_QUERY);
-        PricingCalculatorPage calculatorPage = searchResultPage
+        PricingCalculatorBlock calculatorPage = searchResultPage
                 .selectCalculatorSite();
         return calculatorPage
                 .selectCalculatorType("Compute Engine")
