@@ -6,29 +6,29 @@ import org.openqa.selenium.WebElement;
 import wait.WaitService;
 
 public class PricingCalculatorBlock extends AbstractGooglePage {
-    private static final String CALCULATOR_TYPE = "//md-pagination-wrapper//md-tab-item[@aria-controls='tab-content-1']"
+    private static final String CALCULATOR_TYPE_XPATH = "//md-pagination-wrapper//md-tab-item[@aria-controls='tab-content-1']"
             + "//div[@class='tab-holder compute'][@title='%s']";
     private static final String INSTANCES_FIELD_ID = "input_62";
     private static final String OPERATING_SYSTEM_FIELD_ID = "select_value_label_55";
-    private static final String OPERATING_SYSTEM_XPATH_PATTERN = "//md-option" + XPATH_PATTERN;
+    private static final String OPERATING_SYSTEM_XPATH_PATTERN = "//md-option" + DIV_WITH_TEXT;
     private static final String MACHINE_CLASS_FIELD_ID = "select_value_label_56";
     private static final String MACHINE_CLASS_XPATH = "//*[@id='select_container_80']" + OPERATING_SYSTEM_XPATH_PATTERN;
     private static final String MACHINE_SERIES_FIELD_ID = "select_value_label_58";
-    private static final String MACHINE_SERIES_XPATH = XPATH_PATTERN;
+    private static final String MACHINE_SERIES_XPATH = DIV_WITH_TEXT;
     private static final String MACHINE_TYPE_FIELD_ID = "select_88";
-    private static final String MACHINE_TYPE_XPATH = XPATH_PATTERN;
+    private static final String MACHINE_TYPE_XPATH = DIV_WITH_TEXT;
     private static final String GPU_CHECKBOX_XPATH = "//form[./h2[text()='Instances']]" +
             "//md-checkbox[@aria-label='Add GPUs']";
     private static final String NUMBER_OF_GPU_FIELD_ID = "select_value_label_391";
-    private static final String NUMBER_OF_GPU_XPATH = "//div[@id='select_container_394']" + XPATH_PATTERN;
+    private static final String NUMBER_OF_GPU_XPATH = "//div[@id='select_container_394']" + DIV_WITH_TEXT;
     private static final String GPU_TYPE_FIELD_ID = "select_value_label_392";
-    private static final String GPU_TYPE_XPATH = XPATH_PATTERN;
+    private static final String GPU_TYPE_XPATH = DIV_WITH_TEXT;
     private static final String LOCAL_SSD_FIELD_ID = "select_value_label_353";
-    private static final String LOCAL_SSD_XPATH = XPATH_PATTERN;
+    private static final String LOCAL_SSD_XPATH = DIV_WITH_TEXT;
     private static final String DATACENTER_LOCATION_FIELD_ID = "select_90";
-    private static final String DATACENTER_LOCATION_XPATH = "//*[@id='select_container_91']" + XPATH_PATTERN;
+    private static final String DATACENTER_LOCATION_XPATH = "//*[@id='select_container_91']" + DIV_WITH_TEXT;
     private static final String COMMITTED_USAGE_FIELD_ID = "select_97";
-    private static final String COMMITTED_USAGE_XPATH = "//*[@id='select_container_98']" + XPATH_PATTERN;
+    private static final String COMMITTED_USAGE_XPATH = "//*[@id='select_container_98']" + DIV_WITH_TEXT;
     private static final String ADD_TO_ESTIMATE_XPATH = "//div[@ng-if='listingCtrl.showComputeEngine']" +
             "//button[@class='md-raised md-primary cpc-button md-button md-ink-ripple']";
 
@@ -39,7 +39,7 @@ public class PricingCalculatorBlock extends AbstractGooglePage {
     public PricingCalculatorBlock selectCalculatorType(String inputCalculatorType) {
         switchToFrame();
         String calculatorTypeXpath = String
-                .format(CALCULATOR_TYPE, inputCalculatorType);
+                .format(CALCULATOR_TYPE_XPATH, inputCalculatorType);
         WaitService.waitForPresenceOfElementByXpath(driver, calculatorTypeXpath);
         WebElement calculatorType = driver.findElement(By
                 .xpath(calculatorTypeXpath));
@@ -150,9 +150,8 @@ public class PricingCalculatorBlock extends AbstractGooglePage {
     }
 
     public PricingResultBlock clickForAddedToEstimate() {
-        WebElement addToEstimate = driver.findElement(By
-                .xpath(ADD_TO_ESTIMATE_XPATH));
-        addToEstimate.click();
+        driver.findElement(By
+                .xpath(ADD_TO_ESTIMATE_XPATH)).click();
         return new PricingResultBlock(driver);
     }
 }

@@ -18,8 +18,7 @@ public class SendEmailBlock extends AbstractGooglePage {
         WebElement emailField = driver.findElement(By.xpath(EMAIL_FIELD_XPATH));
         emailField.click();
         emailField.sendKeys(copyEmail);
-        WebElement sendEmailButton = driver.findElement(By.xpath(SEND_EMAIL_BUTTON_XPATH));
-        sendEmailButton.click();
+        driver.findElement(By.xpath(SEND_EMAIL_BUTTON_XPATH)).click();
         return this;
     }
 }

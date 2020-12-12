@@ -13,6 +13,5 @@ public class ICanWinTest extends AbstractTest {
                 .selectExpiration("10 Minutes")
                 .enterPasteName("how to gain dominance among developers")
                 .createPasteFile();
-        driver.quit();
     }
 }

@@ -1,9 +1,6 @@
-import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.calculator.*;
-
-import java.util.ArrayList;
 
 public class HardcoreTest extends AbstractTest {
     private static final String GOOGLE_CLOUD_URL = "https://cloud.google.com/ ";
@@ -28,15 +25,6 @@ public class HardcoreTest extends AbstractTest {
 
         String costInEmail = emailPage.getMonthlyCostFromMail();
         Assert.assertTrue(costInResultPage.contains(costInEmail));
-    }
-
-    public void createNewTab() {
-        ((JavascriptExecutor) driver).executeScript("window.open()");
-    }
-
-    private void switchToTab(int tabIndex) {
-        ArrayList<String> tabs2 = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs2.get(tabIndex));
     }
 
     private PricingResultBlock createResultBlock() {

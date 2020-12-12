@@ -2,7 +2,6 @@ package page.calculator;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import page.AbstractPage;
 
 public class SearchResultPage extends AbstractPage {
@@ -14,8 +13,7 @@ public class SearchResultPage extends AbstractPage {
     }
 
     public PricingCalculatorBlock selectCalculatorSite() {
-        WebElement result = driver.findElement(By.xpath(RESULT_XPATH));
-        result.click();
+        driver.findElement(By.xpath(RESULT_XPATH)).click();
         return new PricingCalculatorBlock(driver);
     }
 }

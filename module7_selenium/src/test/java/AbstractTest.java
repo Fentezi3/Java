@@ -1,10 +1,12 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractTest {
@@ -25,6 +27,14 @@ public abstract class AbstractTest {
     @AfterMethod(alwaysRun = true)
     protected void driverClose() {
         driver.quit();
-        driver = null;
+    }
+
+    protected void createNewTab() {
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+    }
+
+    protected void switchToTab(int tabIndex) {
+        ArrayList<String> tabs2 = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs2.get(tabIndex));
     }
 }

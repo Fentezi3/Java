@@ -19,7 +19,7 @@ public class BringItOnTest extends AbstractTest {
     @Test
     public void testResultSyntax() {
         PastebinResultPage resultPage = createPastebin();
-        Assert.assertEquals(resultPage.getCodeSyntax(BASH), BASH);
+        Assert.assertEquals(resultPage.getCodeSyntax(), BASH);
     }
 
     @Test

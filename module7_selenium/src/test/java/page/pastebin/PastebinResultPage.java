@@ -6,7 +6,7 @@ import page.AbstractPage;
 import wait.WaitService;
 
 public class PastebinResultPage extends AbstractPage {
-    private static final String SYNTAX_SELECTOR_XPATH_PATTERN = "//*[text()='%s']";
+    private static final String SYNTAX_SELECTOR_XPATH_PATTERN = "//div[@class='left']//a[@class='btn -small h_800']";
     private static final String TITLE_XPATH = "//h1";
     private static final String CODE_CLASS_NAME = "textarea";
 
@@ -27,11 +27,10 @@ public class PastebinResultPage extends AbstractPage {
     /**
      * Find code syntax.
      *
-     * @param SyntaxHighlighting language for comparison.
      * @return String code syntax.
      */
-    public String getCodeSyntax(String SyntaxHighlighting) {
-        String syntaxFormat = String.format(SYNTAX_SELECTOR_XPATH_PATTERN, SyntaxHighlighting);
+    public String getCodeSyntax() {
+        String syntaxFormat = String.format(SYNTAX_SELECTOR_XPATH_PATTERN);
         WaitService.waitForPresenceOfElementByXpath(driver, syntaxFormat);
         return driver.findElement(By.xpath(syntaxFormat)).getAttribute("innerText");
     }

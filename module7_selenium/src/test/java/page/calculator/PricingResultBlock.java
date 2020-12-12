@@ -2,10 +2,9 @@ package page.calculator;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class PricingResultBlock extends AbstractGooglePage {
-    private static final String FIELD_XPATH = XPATH_PATTERN;
+    private static final String FIELD_XPATH = DIV_WITH_TEXT;
     private static final String COST_XPATH = "//h2[@class='md-title']//b";
     private static final String EMAIL_ESTIMATE_BUTTON_XPATH = "//button[@aria-label='Email Estimate']";
 
@@ -41,8 +40,7 @@ public class PricingResultBlock extends AbstractGooglePage {
     }
 
     public SendEmailBlock selectEmailEstimate() {
-        WebElement emailEstimateButton = driver.findElement(By.xpath(EMAIL_ESTIMATE_BUTTON_XPATH));
-        emailEstimateButton.click();
+        driver.findElement(By.xpath(EMAIL_ESTIMATE_BUTTON_XPATH)).clear();
         return new SendEmailBlock(driver);
     }
 }
