@@ -6,7 +6,7 @@ public class ScannerWrapper {
     private Scanner scanner;
 
     public void openScanner() {
-        if(scanner == null){
+        if (scanner == null) {
             scanner = new Scanner(System.in);
         }
     }
