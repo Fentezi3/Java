@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Smoke" verbose="1">
-    <test name="Hurt">
+    <test name="Hard">
         <classes>
-            <class name="test.HurtMePlentyTest"/>
+            <class name="test.HardcoreTest"/>
         </classes>
     </test>
 </suite>

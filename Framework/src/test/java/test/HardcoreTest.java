@@ -1,11 +1,14 @@
 package test;
 
 import model.VirtualMachine;
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.*;
 import service.VirtualMachineCreator;
 import util.TabUtils;
+
+import java.util.ArrayList;
 
 public class HardcoreTest extends AbstractTest {
     private static final String GOOGLE_CLOUD_URL = "https://cloud.google.com/ ";
@@ -16,16 +19,16 @@ public class HardcoreTest extends AbstractTest {
 
         String costInResultPage = resultPage.getCostFieldValue();
         SendEmailBlock sendEmail = resultPage.selectEmailEstimate();
-        TabUtils.createNewTab();
-        TabUtils.switchToTab(1);
+        createNewTab();
+        switchToTab(1);
 
         EmailPage emailPage = new EmailPage(driver);
         emailPage.openEmailPage();
         String email = emailPage.copyEmail();
-        TabUtils.switchToTab(0);
+        switchToTab(0);
 
         sendEmail.sendEmail(email);
-        TabUtils.switchToTab(1);
+        switchToTab(1);
 
         String costInEmail = emailPage.getMonthlyCostFromMail();
         Assert.assertTrue(costInResultPage.contains(costInEmail));
@@ -53,5 +56,14 @@ public class HardcoreTest extends AbstractTest {
                 .selectDataCenter(machine.getDataCenter())
                 .selectCommittedUsage(machine.getCommittedUsage())
                 .clickForAddedToEstimate();
+    }
+
+    private void createNewTab() {
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+    }
+
+    private void switchToTab(int tabIndex) {
+        ArrayList<String> tabs2 = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs2.get(tabIndex));
     }
 }
