@@ -3,15 +3,17 @@ package test;
 import model.VirtualMachine;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import page.GoogleCloudStartPage;
 import page.PricingCalculatorBlock;
 import page.PricingResultBlock;
 import page.SearchResultPage;
 import service.VirtualMachineCreator;
+import util.TestListener;
 
 import static page.PricingResultBlock.FieldName.*;
-
+@Listeners({TestListener.class})
 public class HurtMePlentyTest extends AbstractTest {
     private static final String GOOGLE_CLOUD_URL = "https://cloud.google.com/ ";
     private static final String SEARCH_QUERY = "Google Cloud Platform Pricing Calculator";

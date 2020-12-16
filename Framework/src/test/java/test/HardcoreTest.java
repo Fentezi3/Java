@@ -3,13 +3,15 @@ package test;
 import model.VirtualMachine;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import page.*;
 import service.VirtualMachineCreator;
 import util.TabUtils;
+import util.TestListener;
 
 import java.util.ArrayList;
-
+@Listeners({TestListener.class})
 public class HardcoreTest extends AbstractTest {
     private static final String GOOGLE_CLOUD_URL = "https://cloud.google.com/ ";
     private static final String SEARCH_QUERY = "Google Cloud Platform Pricing Calculator";

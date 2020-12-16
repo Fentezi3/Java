@@ -55,6 +55,7 @@ public class PricingCalculatorBlock extends AbstractGooglePage {
     }
 
     public PricingCalculatorBlock selectOperatingSystem(String inputOperatingSystem) {
+        WaitService.waitForElementToBeClickableByXpath(driver, OPERATING_SYSTEM_FIELD_XPATH);
         WebElement operatingSystemField = driver.findElement(By.xpath(OPERATING_SYSTEM_FIELD_XPATH));
         operatingSystemField.click();
         WebElement operatingSystem = driver.findElement(By.xpath(String
