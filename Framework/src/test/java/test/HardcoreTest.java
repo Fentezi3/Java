@@ -16,7 +16,6 @@ public class HardcoreTest extends AbstractTest {
     @Test
     public void testResultInEmailEqualsManualResult() {
         PricingResultBlock resultPage = createResultBlock();
-
         String costInResultPage = resultPage.getCostFieldValue();
         SendEmailBlock sendEmail = resultPage.selectEmailEstimate();
         createNewTab();

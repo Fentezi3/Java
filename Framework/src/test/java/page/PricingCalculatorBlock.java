@@ -12,7 +12,7 @@ public class PricingCalculatorBlock extends AbstractGooglePage {
     private static final String OPERATING_SYSTEM_FIELD_XPATH = "//md-select[contains(@aria-label,'Operating System / Software:')]";
     private static final String OPERATING_SYSTEM_XPATH_PATTERN = "//md-option" + DIV_WITH_TEXT;
     private static final String MACHINE_CLASS_FIELD_XPATH = "//md-select[@placeholder='VM Class']";
-    private static final String MACHINE_CLASS_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']//div[contains(text(),'%s')]";
+    private static final String MACHINE_CLASS_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']" + DIV_WITH_TEXT;
     private static final String MACHINE_SERIES_FIELD_XPATH = "//md-select[@placeholder='Series']";
     private static final String MACHINE_SERIES_XPATH = DIV_WITH_TEXT;
     private static final String MACHINE_TYPE_FIELD_XPATH = "//md-select[@placeholder='Instance type']";
@@ -20,15 +20,15 @@ public class PricingCalculatorBlock extends AbstractGooglePage {
     private static final String GPU_CHECKBOX_XPATH = "//form[./h2[text()='Instances']]" +
             "//md-checkbox[@aria-label='Add GPUs']";
     private static final String NUMBER_OF_GPU_FIELD_XPATH = "//md-select[@placeholder='Number of GPUs']";
-    private static final String NUMBER_OF_GPU_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']//div[contains(text(),'%s')]";
+    private static final String NUMBER_OF_GPU_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']" + DIV_WITH_TEXT;
     private static final String GPU_TYPE_FIELD_XPATH = "//md-select[@placeholder='GPU type']";
     private static final String GPU_TYPE_XPATH = DIV_WITH_TEXT;
     private static final String LOCAL_SSD_FIELD_XPATH = "//form[./h2[text()='Instances']]//md-select[@placeholder='Local SSD']";
     private static final String LOCAL_SSD_XPATH = DIV_WITH_TEXT;
     private static final String DATACENTER_LOCATION_FIELD_XPATH = "//form[./h2[text()='Instances']]//md-select[@placeholder='Datacenter location']";
-    private static final String DATACENTER_LOCATION_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']//div[contains(text(),'%s')]";
+    private static final String DATACENTER_LOCATION_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']" + DIV_WITH_TEXT;
     private static final String COMMITTED_USAGE_FIELD_XPATH = "//form[./h2[text()='Instances']]//md-select[@placeholder='Committed usage']";
-    private static final String COMMITTED_USAGE_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']//div[contains(text(),'%s')]";
+    private static final String COMMITTED_USAGE_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']" + DIV_WITH_TEXT;
     private static final String ADD_TO_ESTIMATE_XPATH = "//div[@ng-if='listingCtrl.showComputeEngine']" +
             "//button[@class='md-raised md-primary cpc-button md-button md-ink-ripple']";
 
@@ -66,7 +66,7 @@ public class PricingCalculatorBlock extends AbstractGooglePage {
     public PricingCalculatorBlock selectMachineClass(String inputMachineClass) {
         WebElement machineClassField = driver.findElement(By.xpath(MACHINE_CLASS_FIELD_XPATH));
         machineClassField.click();
-        WaitService.waitForElementToBeClickableByXpath(driver,String
+        WaitService.waitForElementToBeClickableByXpath(driver, String
                 .format(MACHINE_CLASS_XPATH, inputMachineClass));
         WebElement machineClass = driver.findElement(By.xpath(String
                 .format(MACHINE_CLASS_XPATH, inputMachineClass)));
@@ -85,7 +85,6 @@ public class PricingCalculatorBlock extends AbstractGooglePage {
     }
 
     public PricingCalculatorBlock selectMachineType(String inputMachineType) {
-        //WaitService.waitForElementToBeClickableByXpath(driver,MACHINE_TYPE_FIELD_ID);
         WebElement machineTypeField = driver.findElement(By.xpath(MACHINE_TYPE_FIELD_XPATH));
         machineTypeField.click();
         String machineTypeXpath = String.format(MACHINE_TYPE_XPATH, inputMachineType);
