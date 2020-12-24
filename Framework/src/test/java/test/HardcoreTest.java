@@ -7,7 +7,6 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import page.*;
 import service.VirtualMachineCreator;
-import util.TabUtils;
 import util.TestListener;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class HardcoreTest extends AbstractTest {
         createNewTab();
         switchToTab(1);
 
-        EmailPage emailPage = new EmailPage(driver);
+        EmailPage emailPage = new EmailPage();
         emailPage.openEmailPage();
         String email = emailPage.copyEmail();
         switchToTab(0);
@@ -37,7 +36,7 @@ public class HardcoreTest extends AbstractTest {
 
     private PricingResultBlock createResultBlock() {
         VirtualMachine machine = VirtualMachineCreator.withCredentialsFromProperty();
-        GoogleCloudStartPage googleCloudStartPage = new GoogleCloudStartPage(driver);
+        GoogleCloudStartPage googleCloudStartPage = new GoogleCloudStartPage();
         SearchResultPage searchResultPage = googleCloudStartPage
                 .openPage(GOOGLE_CLOUD_URL)
                 .searchFor(SEARCH_QUERY);

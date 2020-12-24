@@ -10,8 +10,8 @@ public abstract class AbstractGooglePage extends AbstractPage {
     private static final String I_FRAME_XPATH = "//article[@id='cloud-site']//devsite-iframe//iframe";
     private static final String MY_FRAME_XPATH = "//iframe[@id='myFrame']";
 
-    protected AbstractGooglePage(WebDriver driver) {
-        super(driver);
+    protected AbstractGooglePage() {
+        super();
     }
 
     protected void switchToFrame() {

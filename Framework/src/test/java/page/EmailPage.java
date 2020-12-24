@@ -16,8 +16,8 @@ public class EmailPage extends AbstractPage {
     private static final String EMAIL_ID = "mail_address";
     private static final String FIELD_LIST_XPATH = "//td//h3";
 
-    public EmailPage(WebDriver driver) {
-        super(driver);
+    public EmailPage() {
+        super();
     }
 
     public void openEmailPage() {

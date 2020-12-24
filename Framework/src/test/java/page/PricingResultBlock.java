@@ -1,8 +1,6 @@
 package page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import wait.WaitService;
 
 public class PricingResultBlock extends AbstractGooglePage {
     private static final String FIELD_XPATH = DIV_WITH_TEXT;
@@ -28,8 +26,8 @@ public class PricingResultBlock extends AbstractGooglePage {
         }
     }
 
-    public PricingResultBlock(WebDriver driver) {
-        super(driver);
+    public PricingResultBlock() {
+        super();
     }
 
     public String getItemFieldValue(String string) {
@@ -42,6 +40,6 @@ public class PricingResultBlock extends AbstractGooglePage {
 
     public SendEmailBlock selectEmailEstimate() {
         driver.findElement(By.xpath(EMAIL_ESTIMATE_BUTTON_XPATH)).click();
-        return new SendEmailBlock(driver);
+        return new SendEmailBlock();
     }
 }

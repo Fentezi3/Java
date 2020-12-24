@@ -1,7 +1,6 @@
 package page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import wait.WaitService;
 
@@ -32,8 +31,8 @@ public class PricingCalculatorBlock extends AbstractGooglePage {
     private static final String ADD_TO_ESTIMATE_XPATH = "//div[@ng-if='listingCtrl.showComputeEngine']" +
             "//button[@class='md-raised md-primary cpc-button md-button md-ink-ripple']";
 
-    public PricingCalculatorBlock(WebDriver driver) {
-        super(driver);
+    public PricingCalculatorBlock() {
+        super();
     }
 
     public PricingCalculatorBlock selectCalculatorType(String inputCalculatorType) {
@@ -155,6 +154,6 @@ public class PricingCalculatorBlock extends AbstractGooglePage {
     public PricingResultBlock clickForAddedToEstimate() {
         driver.findElement(By
                 .xpath(ADD_TO_ESTIMATE_XPATH)).click();
-        return new PricingResultBlock(driver);
+        return new PricingResultBlock();
     }
 }

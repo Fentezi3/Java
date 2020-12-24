@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public abstract class AbstractTest {
     protected WebDriver driver;
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod()
     protected void browserSetup() {
         driver = DriverSingleton.getDriver();
     }

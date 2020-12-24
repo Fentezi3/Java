@@ -42,7 +42,7 @@ public class HurtMePlentyTest extends AbstractTest {
 
     private PricingResultBlock createResultBlock() {
         VirtualMachine machine = VirtualMachineCreator.withCredentialsFromProperty();
-        GoogleCloudStartPage googleCloudStartPage = new GoogleCloudStartPage(driver);
+        GoogleCloudStartPage googleCloudStartPage = new GoogleCloudStartPage();
         SearchResultPage searchResultPage = googleCloudStartPage
                 .openPage(GOOGLE_CLOUD_URL)
                 .searchFor(SEARCH_QUERY);
