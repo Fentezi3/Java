@@ -1,8 +1,6 @@
 import bean.Car;
 import scanner.ScannerWrapper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -30,13 +28,12 @@ public class Main {
                     case SEND_CAR_TO_PARKING:
                         System.out.println("How long car can wait free place?");
                         int inputTime = scanner.readInput();
-                        sendCar(inputTime, parking);
+                        System.out.println("How long is car standing in parking?");
+                        int standTime = scanner.readInput();
+                        sendCar(inputTime, parking, standTime);
                         break;
                     case GET_CARS_ID:
-                        List<Long> carInParking = getCarsIdFromParking(parking);
-                        for (long carId : carInParking) {
-                            System.out.println(carId);
-                        }
+                        getCarsIdFromParking(parking);
                         break;
                     case FINISH_WORK:
                         System.out.println("Good bye, my friends!");
@@ -53,37 +50,29 @@ public class Main {
 
     }
 
-    private static void sendCar(int time, final BlockingQueue<Car> parking) {
+    private static void sendCar(int time, final BlockingQueue<Car> parking, int standTime) {
         Car newCar = new Car(time);
         new Thread(() -> {
             try {
                 parking.offer(newCar, time, TimeUnit.SECONDS);
+                TimeUnit.SECONDS.sleep(standTime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            parking.remove();
         }).start();
     }
 
-    private static List<Long> getCarsIdFromParking(BlockingQueue<Car> parking) {
-        List<Long> carsIDList = new ArrayList<>();
+    private static void getCarsIdFromParking(BlockingQueue<Car> parking) {
         for (Car car : parking) {
-            carsIDList.add(car.getCarID());
+            System.out.println(car.toString());
         }
-        return carsIDList;
     }
 
     private static BlockingQueue<Car> createParkingPlace() {
-        Car car1 = new Car(5);
-        Car car2 = new Car(10);
-        Car car3 = new Car(6);
-        Car car4 = new Car(3);
-        Car car5 = new Car(7);
-        BlockingQueue<Car> parkingQueue = new LinkedBlockingQueue<>(8);
-        parkingQueue.add(car1);
-        parkingQueue.add(car2);
-        parkingQueue.add(car3);
-        parkingQueue.add(car4);
-        parkingQueue.add(car5);
+        BlockingQueue<Car> parkingQueue = new LinkedBlockingQueue<>(4);
+        sendCar(5, parkingQueue, 5);
+        sendCar(10, parkingQueue, 10);
         return parkingQueue;
     }
 }

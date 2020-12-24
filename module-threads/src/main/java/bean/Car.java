@@ -1,22 +1,30 @@
 package bean;
 
 public class Car extends Thread {
-    private final long carID;
-    int waitingTime;
+    private final long id;
+    private int waitingTime;
 
     public Car(int waitingTime) {
-        this.carID = System.nanoTime();
+        this.id = System.nanoTime();
         this.waitingTime = waitingTime;
     }
 
-    public long getCarID() {
-        return carID;
+    public long getId() {
+        return id;
+    }
+
+    public int getWaitingTime() {
+        return waitingTime;
+    }
+
+    public void setWaitingTime(int waitingTime) {
+        this.waitingTime = waitingTime;
     }
 
     @Override
     public String toString() {
         return "Car{" +
-                "carID=" + carID +
+                "carID=" + id +
                 ", waitingTime=" + waitingTime +
                 '}';
     }
